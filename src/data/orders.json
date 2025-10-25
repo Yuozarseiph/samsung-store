@@ -1,0 +1,142 @@
+[
+  {
+    "id": "order-001",
+    "userId": "user-001",
+    "orderNumber": "ORD-2024-001234",
+    "status": "delivered",
+    "createdAt": "2024-10-01T10:30:00Z",
+    "deliveredAt": "2024-10-05T15:20:00Z",
+    "items": [
+      {
+        "productId": "galaxy-s24-ultra",
+        "name": "Galaxy S24 Ultra",
+        "price": 1299.99,
+        "quantity": 1,
+        "color": "Titanium Black",
+        "storage": "512GB",
+        "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800&q=80"
+      }
+    ],
+    "shipping": {
+      "method": "Express",
+      "cost": 0,
+      "address": {
+        "name": "John Doe",
+        "street": "123 Galaxy Street",
+        "city": "Tech City",
+        "state": "California",
+        "zipCode": "12345",
+        "country": "United States",
+        "phone": "+1 (555) 123-4567"
+      }
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "4242",
+      "brand": "Visa"
+    },
+    "subtotal": 1299.99,
+    "discount": 130.00,
+    "tax": 116.99,
+    "shipping_cost": 0,
+    "total": 1286.98,
+    "warranty": {
+      "type": "Standard 2-Year",
+      "expiresAt": "2026-10-01T10:30:00Z",
+      "serialNumber": "SN-S24U-20241001-001234"
+    }
+  },
+  {
+    "id": "order-002",
+    "userId": "user-001",
+    "orderNumber": "ORD-2024-002345",
+    "status": "shipped",
+    "createdAt": "2024-10-20T14:15:00Z",
+    "shippedAt": "2024-10-21T09:00:00Z",
+    "estimatedDelivery": "2024-10-26T17:00:00Z",
+    "trackingNumber": "TRK-1234567890",
+    "items": [
+      {
+        "productId": "galaxy-buds3-pro",
+        "name": "Galaxy Buds3 Pro",
+        "price": 249.99,
+        "quantity": 1,
+        "color": "Graphite",
+        "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80"
+      }
+    ],
+    "shipping": {
+      "method": "Standard",
+      "cost": 9.99,
+      "address": {
+        "name": "John Doe",
+        "street": "123 Galaxy Street",
+        "city": "Tech City",
+        "state": "California",
+        "zipCode": "12345",
+        "country": "United States",
+        "phone": "+1 (555) 123-4567"
+      }
+    },
+    "payment": {
+      "method": "PayPal",
+      "email": "john.doe@example.com"
+    },
+    "subtotal": 249.99,
+    "discount": 25.00,
+    "tax": 22.50,
+    "shipping_cost": 9.99,
+    "total": 257.48,
+    "warranty": {
+      "type": "Standard 2-Year",
+      "expiresAt": "2026-10-20T14:15:00Z",
+      "serialNumber": "SN-BUDS3P-20241020-002345"
+    }
+  },
+  {
+    "id": "order-003",
+    "userId": "user-002",
+    "orderNumber": "ORD-2024-003456",
+    "status": "processing",
+    "createdAt": "2024-10-24T11:45:00Z",
+    "items": [
+      {
+        "productId": "galaxy-watch7",
+        "name": "Galaxy Watch7",
+        "price": 399.99,
+        "quantity": 1,
+        "color": "Green",
+        "storage": "44mm",
+        "image": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&q=80"
+      }
+    ],
+    "shipping": {
+      "method": "Express",
+      "cost": 0,
+      "address": {
+        "name": "Sarah Smith",
+        "street": "456 Innovation Ave",
+        "city": "San Francisco",
+        "state": "California",
+        "zipCode": "94102",
+        "country": "United States",
+        "phone": "+1 (555) 987-6543"
+      }
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "8888",
+      "brand": "Mastercard"
+    },
+    "subtotal": 399.99,
+    "discount": 40.00,
+    "tax": 36.00,
+    "shipping_cost": 0,
+    "total": 395.99,
+    "warranty": {
+      "type": "Extended 3-Year",
+      "expiresAt": "2027-10-24T11:45:00Z",
+      "serialNumber": "SN-WATCH7-20241024-003456"
+    }
+  }
+]

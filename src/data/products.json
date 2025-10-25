@@ -1,0 +1,450 @@
+[
+  {
+    "id": "galaxy-s24-ultra",
+    "name": "Galaxy S24 Ultra",
+    "price": 1299.99,
+    "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=800&q=80",
+    "tag": "Featured",
+    "category": "Phones",
+    "colors": ["Titanium Black", "Titanium Gray", "Titanium Violet"],
+    "storage": ["256GB", "512GB", "1TB"],
+    "description": "The ultimate Galaxy experience with S Pen, pro-grade camera, and stunning titanium design.",
+    "specs": {
+      "Display": "6.8\" QHD+ Dynamic AMOLED 2X, 120Hz",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Camera": "200MP Wide + 50MP 5x + 12MP Ultra-Wide + 10MP 3x",
+      "Battery": "5000 mAh with 45W Fast Charging",
+      "Memory": "12GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-s24-plus",
+    "name": "Galaxy S24+",
+    "price": 999.99,
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80",
+    "tag": "Popular",
+    "category": "Phones",
+    "colors": ["Onyx Black", "Marble Gray", "Cobalt Violet"],
+    "storage": ["256GB", "512GB"],
+    "description": "Premium performance meets elegant design in this powerful flagship.",
+    "specs": {
+      "Display": "6.7\" QHD+ Dynamic AMOLED 2X, 120Hz",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Camera": "50MP Wide + 12MP Ultra-Wide + 10MP 3x",
+      "Battery": "4900 mAh with 45W Fast Charging",
+      "Memory": "12GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-s24",
+    "name": "Galaxy S24",
+    "price": 799.99,
+    "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&q=80",
+    "tag": "Best Seller",
+    "category": "Phones",
+    "colors": ["Onyx Black", "Marble Gray", "Amber Yellow"],
+    "storage": ["128GB", "256GB"],
+    "description": "Compact powerhouse with flagship features in a pocket-friendly size.",
+    "specs": {
+      "Display": "6.2\" FHD+ Dynamic AMOLED 2X, 120Hz",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Camera": "50MP Wide + 12MP Ultra-Wide + 10MP 3x",
+      "Battery": "4000 mAh with 25W Fast Charging",
+      "Memory": "8GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-z-fold6",
+    "name": "Galaxy Z Fold6",
+    "price": 1899.99,
+    "image": "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=800&q=80",
+    "tag": "New",
+    "category": "Phones",
+    "colors": ["Phantom Black", "Silver Shadow", "Pink Gold"],
+    "storage": ["256GB", "512GB", "1TB"],
+    "description": "Unfold your world with the most powerful foldable phone. Multitask like never before.",
+    "specs": {
+      "Display": "7.6\" Main + 6.2\" Cover, Dynamic AMOLED 2X",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Camera": "50MP Wide + 12MP Ultra-Wide + 10MP 3x",
+      "Battery": "4400 mAh",
+      "Memory": "12GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-z-flip6",
+    "name": "Galaxy Z Flip6",
+    "price": 1099.99,
+    "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&q=80",
+    "tag": "Trending",
+    "category": "Phones",
+    "colors": ["Mint", "Graphite", "Lavender", "Yellow"],
+    "storage": ["256GB", "512GB"],
+    "description": "Compact flip design with powerful performance and stunning cover display.",
+    "specs": {
+      "Display": "6.7\" Main + 3.4\" Cover, Dynamic AMOLED 2X",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Camera": "50MP Wide + 12MP Ultra-Wide",
+      "Battery": "4000 mAh with 25W Fast Charging",
+      "Memory": "8GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-a54-5g",
+    "name": "Galaxy A54 5G",
+    "price": 449.99,
+    "image": "https://images.unsplash.com/photo-1592286927505-c0d6c9220d9c?w=800&q=80",
+    "tag": "Budget Pick",
+    "category": "Phones",
+    "colors": ["Awesome Graphite", "Awesome Violet", "Awesome Lime"],
+    "storage": ["128GB", "256GB"],
+    "description": "Premium features at an accessible price with stunning display and camera.",
+    "specs": {
+      "Display": "6.4\" FHD+ Super AMOLED, 120Hz",
+      "Processor": "Exynos 1380",
+      "Camera": "50MP Wide + 12MP Ultra-Wide + 5MP Macro",
+      "Battery": "5000 mAh with 25W Fast Charging",
+      "Memory": "6GB / 8GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-buds3-pro",
+    "name": "Galaxy Buds3 Pro",
+    "price": 249.99,
+    "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80",
+    "tag": "Featured",
+    "category": "Audio",
+    "colors": ["Graphite", "Silver", "White"],
+    "description": "Premium sound with adaptive noise cancellation and 360 audio for immersive listening.",
+    "specs": {
+      "ANC": "Intelligent Adaptive ANC",
+      "Audio": "Hi-Fi 24bit with SSC Codec",
+      "Battery": "6h + 24h with case",
+      "Features": "360 Audio, Voice Detect, Ambient Sound"
+    }
+  },
+  {
+    "id": "galaxy-buds3",
+    "name": "Galaxy Buds3",
+    "price": 179.99,
+    "image": "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=800&q=80",
+    "tag": "Popular",
+    "category": "Audio",
+    "colors": ["Graphite", "Silver"],
+    "description": "Premium audio quality with comfortable fit and long battery life.",
+    "specs": {
+      "ANC": "Active Noise Cancellation",
+      "Audio": "Coaxial 2-way Speaker",
+      "Battery": "5h + 24h with case",
+      "Features": "360 Audio, Ambient Sound"
+    }
+  },
+  {
+    "id": "galaxy-buds-fe",
+    "name": "Galaxy Buds FE",
+    "price": 99.99,
+    "image": "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=800&q=80",
+    "tag": "Best Value",
+    "category": "Audio",
+    "colors": ["Graphite", "White"],
+    "description": "Affordable wireless earbuds with great sound and active noise cancellation.",
+    "specs": {
+      "ANC": "Active Noise Cancellation",
+      "Audio": "Dynamic 2-way Speaker",
+      "Battery": "6h + 21h with case",
+      "Features": "Ambient Sound, Seamless Switching"
+    }
+  },
+  {
+    "id": "galaxy-watch7",
+    "name": "Galaxy Watch7",
+    "price": 399.99,
+    "image": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&q=80",
+    "tag": "New",
+    "category": "Wearables",
+    "colors": ["Green", "Cream", "Silver"],
+    "storage": ["40mm", "44mm"],
+    "description": "Advanced health monitoring and seamless connectivity in an elegant design.",
+    "specs": {
+      "Display": "Super AMOLED Always-On",
+      "Battery": "Up to 40h (40mm) / 50h (44mm)",
+      "Health": "Body composition, Sleep tracking, ECG, Blood pressure",
+      "Connectivity": "LTE, GPS, NFC, Bluetooth 5.3"
+    }
+  },
+  {
+    "id": "galaxy-watch6-classic",
+    "name": "Galaxy Watch6 Classic",
+    "price": 429.99,
+    "image": "https://images.unsplash.com/photo-1617043786394-f977fa12eddf?w=800&q=80",
+    "tag": "Premium",
+    "category": "Wearables",
+    "colors": ["Black", "Silver"],
+    "storage": ["43mm", "47mm"],
+    "description": "Classic rotating bezel design with advanced health and fitness tracking.",
+    "specs": {
+      "Display": "Super AMOLED Always-On",
+      "Battery": "Up to 40h (43mm) / 50h (47mm)",
+      "Health": "Body composition, Sleep coaching, ECG",
+      "Connectivity": "LTE, GPS, NFC, Bluetooth 5.3"
+    }
+  },
+  {
+    "id": "galaxy-watch-fe",
+    "name": "Galaxy Watch FE",
+    "price": 199.99,
+    "image": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&q=80",
+    "tag": "Budget Pick",
+    "category": "Wearables",
+    "colors": ["Black", "Pink Gold", "Silver"],
+    "storage": ["40mm"],
+    "description": "Essential smartwatch features at an accessible price point.",
+    "specs": {
+      "Display": "Super AMOLED",
+      "Battery": "Up to 40h",
+      "Health": "Heart rate, Sleep tracking, Steps",
+      "Connectivity": "Bluetooth, GPS"
+    }
+  },
+  {
+    "id": "galaxy-fit3",
+    "name": "Galaxy Fit3",
+    "price": 59.99,
+    "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800&q=80",
+    "tag": "Best Value",
+    "category": "Wearables",
+    "colors": ["Black", "Silver", "Pink Gold"],
+    "description": "Slim fitness tracker with essential health monitoring features.",
+    "specs": {
+      "Display": "1.6\" AMOLED",
+      "Battery": "Up to 13 days",
+      "Health": "Heart rate, Sleep tracking, 100+ workouts",
+      "Water": "5ATM + IP68"
+    }
+  },
+  {
+    "id": "galaxy-tab-s9-ultra",
+    "name": "Galaxy Tab S9 Ultra",
+    "price": 1199.99,
+    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=800&q=80",
+    "tag": "Featured",
+    "category": "Tablets",
+    "colors": ["Graphite", "Beige"],
+    "storage": ["256GB", "512GB", "1TB"],
+    "description": "The ultimate productivity tablet with stunning display and S Pen precision.",
+    "specs": {
+      "Display": "14.6\" Dynamic AMOLED 2X, 120Hz",
+      "Processor": "Snapdragon 8 Gen 2",
+      "Battery": "11200 mAh with 45W Fast Charging",
+      "S Pen": "Included with ultra-low latency",
+      "Memory": "12GB / 16GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-tab-s9-plus",
+    "name": "Galaxy Tab S9+",
+    "price": 999.99,
+    "image": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=800&q=80",
+    "tag": "Popular",
+    "category": "Tablets",
+    "colors": ["Graphite", "Beige", "Lavender"],
+    "storage": ["256GB", "512GB"],
+    "description": "Large screen tablet perfect for work and entertainment.",
+    "specs": {
+      "Display": "12.4\" Dynamic AMOLED 2X, 120Hz",
+      "Processor": "Snapdragon 8 Gen 2",
+      "Battery": "10090 mAh with 45W Fast Charging",
+      "S Pen": "Included",
+      "Memory": "12GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-tab-s9",
+    "name": "Galaxy Tab S9",
+    "price": 799.99,
+    "image": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800&q=80",
+    "tag": "Best Seller",
+    "category": "Tablets",
+    "colors": ["Graphite", "Beige", "Mint"],
+    "storage": ["128GB", "256GB"],
+    "description": "Perfect balance of portability and productivity.",
+    "specs": {
+      "Display": "11\" Dynamic AMOLED 2X, 120Hz",
+      "Processor": "Snapdragon 8 Gen 2",
+      "Battery": "8400 mAh with 45W Fast Charging",
+      "S Pen": "Included",
+      "Memory": "8GB / 12GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-tab-a9-plus",
+    "name": "Galaxy Tab A9+",
+    "price": 219.99,
+    "image": "https://images.unsplash.com/photo-1587033411391-5d9e51cce126?w=800&q=80",
+    "tag": "Budget Pick",
+    "category": "Tablets",
+    "colors": ["Graphite", "Silver", "Navy"],
+    "storage": ["64GB", "128GB"],
+    "description": "Affordable tablet for everyday entertainment and productivity.",
+    "specs": {
+      "Display": "11\" LCD, 90Hz",
+      "Processor": "Snapdragon 695",
+      "Battery": "7040 mAh with 15W Charging",
+      "Memory": "4GB / 8GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-book4-pro",
+    "name": "Galaxy Book4 Pro",
+    "price": 1449.99,
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80",
+    "tag": "New",
+    "category": "Laptops",
+    "colors": ["Moonstone Gray", "Silver"],
+    "storage": ["512GB", "1TB"],
+    "description": "Ultra-thin laptop with vibrant AMOLED display and all-day battery for professionals.",
+    "specs": {
+      "Display": "16\" 3K AMOLED, 120Hz",
+      "Processor": "Intel Core Ultra 7",
+      "Graphics": "Intel Arc Graphics",
+      "Battery": "Up to 21 hours",
+      "Memory": "16GB / 32GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-book4-pro-360",
+    "name": "Galaxy Book4 Pro 360",
+    "price": 1549.99,
+    "image": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800&q=80",
+    "tag": "Premium",
+    "category": "Laptops",
+    "colors": ["Moonstone Gray"],
+    "storage": ["512GB", "1TB"],
+    "description": "Versatile 2-in-1 laptop with S Pen support and stunning touchscreen.",
+    "specs": {
+      "Display": "16\" 3K AMOLED Touchscreen, 120Hz",
+      "Processor": "Intel Core Ultra 7",
+      "Graphics": "Intel Arc Graphics",
+      "Battery": "Up to 20 hours",
+      "Memory": "16GB / 32GB RAM",
+      "S Pen": "Included"
+    }
+  },
+  {
+    "id": "galaxy-book4",
+    "name": "Galaxy Book4",
+    "price": 899.99,
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=80",
+    "tag": "Best Value",
+    "category": "Laptops",
+    "colors": ["Gray"],
+    "storage": ["256GB", "512GB"],
+    "description": "Reliable performance laptop for everyday computing needs.",
+    "specs": {
+      "Display": "15.6\" FHD",
+      "Processor": "Intel Core 5",
+      "Graphics": "Intel Graphics",
+      "Battery": "Up to 18 hours",
+      "Memory": "8GB / 16GB RAM"
+    }
+  },
+  {
+    "id": "galaxy-book3-ultra",
+    "name": "Galaxy Book3 Ultra",
+    "price": 2399.99,
+    "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80",
+    "tag": "Powerhouse",
+    "category": "Laptops",
+    "colors": ["Graphite"],
+    "storage": ["512GB", "1TB"],
+    "description": "Ultimate performance laptop with discrete graphics for creators.",
+    "specs": {
+      "Display": "16\" 3K AMOLED, 120Hz",
+      "Processor": "Intel Core i7/i9 13th Gen",
+      "Graphics": "NVIDIA GeForce RTX 4050/4070",
+      "Battery": "Up to 18 hours",
+      "Memory": "16GB / 32GB RAM"
+    }
+  },
+  {
+    "id": "samsung-t7-shield",
+    "name": "T7 Shield Portable SSD",
+    "price": 129.99,
+    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=800&q=80",
+    "tag": "Accessories",
+    "category": "Accessories",
+    "colors": ["Black", "Blue", "Beige"],
+    "storage": ["1TB", "2TB", "4TB"],
+    "description": "Rugged portable SSD with blazing-fast speeds and durability.",
+    "specs": {
+      "Speed": "Up to 1050 MB/s",
+      "Durability": "IP65 rated, 3m drop resistant",
+      "Connectivity": "USB 3.2 Gen 2",
+      "Compatibility": "PC, Mac, Android, gaming consoles"
+    }
+  },
+  {
+    "id": "wireless-charger-duo",
+    "name": "Wireless Charger Duo",
+    "price": 69.99,
+    "image": "https://images.unsplash.com/photo-1591290619762-d2c5066c9f98?w=800&q=80",
+    "tag": "Accessories",
+    "category": "Accessories",
+    "colors": ["Black", "White"],
+    "description": "Charge two devices simultaneously with fast wireless charging.",
+    "specs": {
+      "Charging": "Fast Wireless Charging 2.0",
+      "Power": "15W total output",
+      "Compatibility": "Galaxy phones, Watch, Buds",
+      "Features": "LED indicator, Cooling fan"
+    }
+  },
+  {
+    "id": "45w-super-fast-charger",
+    "name": "45W Super Fast Charger",
+    "price": 49.99,
+    "image": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800&q=80",
+    "tag": "Accessories",
+    "category": "Accessories",
+    "colors": ["White"],
+    "description": "Charge your devices at lightning speed with PD 3.0 support.",
+    "specs": {
+      "Power": "45W (PD 3.0 PPS)",
+      "Cable": "USB-C to USB-C cable included",
+      "Compatibility": "Galaxy S24 Ultra, Tab S9 series",
+      "Safety": "Over-current, over-heat protection"
+    }
+  },
+  {
+    "id": "clear-standing-cover",
+    "name": "Clear Standing Cover",
+    "price": 39.99,
+    "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
+    "tag": "Accessories",
+    "category": "Accessories",
+    "colors": ["Clear", "Black"],
+    "description": "Slim protective case with built-in kickstand for hands-free viewing.",
+    "specs": {
+      "Material": "Polycarbonate & TPU",
+      "Protection": "Military-grade drop protection",
+      "Features": "Built-in kickstand, Wireless charging compatible",
+      "Compatibility": "Galaxy S24 series"
+    }
+  },
+  {
+    "id": "smarttag2",
+    "name": "SmartTag2",
+    "price": 29.99,
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    "tag": "Accessories",
+    "category": "Accessories",
+    "colors": ["Black", "White"],
+    "description": "Never lose your belongings with precise tracking and SmartThings Find.",
+    "specs": {
+      "Battery": "Up to 500 days",
+      "Range": "Up to 120m",
+      "Durability": "IP67 water resistant",
+      "Features": "UWB, Compass View, Lost Mode"
+    }
+  }
+]

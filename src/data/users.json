@@ -1,0 +1,50 @@
+[
+  {
+    "id": "user-001",
+    "email": "john.doe@example.com",
+    "password": "hashed_password_here",
+    "firstName": "John",
+    "lastName": "Doe",
+    "phone": "+1 (555) 123-4567",
+    "avatar": "https://i.pravatar.cc/150?u=john",
+    "address": {
+      "street": "123 Galaxy Street",
+      "city": "Tech City",
+      "state": "California",
+      "zipCode": "12345",
+      "country": "United States"
+    },
+    "createdAt": "2024-01-15T10:30:00Z",
+    "orders": ["order-001", "order-002"],
+    "wishlist": ["galaxy-s24-ultra", "galaxy-buds3-pro"],
+    "preferences": {
+      "newsletter": true,
+      "notifications": true,
+      "language": "en"
+    }
+  },
+  {
+    "id": "user-002",
+    "email": "sarah.smith@example.com",
+    "password": "hashed_password_here",
+    "firstName": "Sarah",
+    "lastName": "Smith",
+    "phone": "+1 (555) 987-6543",
+    "avatar": "https://i.pravatar.cc/150?u=sarah",
+    "address": {
+      "street": "456 Innovation Ave",
+      "city": "San Francisco",
+      "state": "California",
+      "zipCode": "94102",
+      "country": "United States"
+    },
+    "createdAt": "2024-02-20T14:20:00Z",
+    "orders": ["order-003"],
+    "wishlist": ["galaxy-z-fold6", "galaxy-watch7"],
+    "preferences": {
+      "newsletter": false,
+      "notifications": true,
+      "language": "en"
+    }
+  }
+]
