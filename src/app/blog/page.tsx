@@ -3,33 +3,40 @@ import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import BlogCard from '@/components/BlogCard'
 import blogs from '@/data/blogs.json'
-import { Search, Filter, X, Mail, Send, Sparkles, BookOpen, Zap } from 'lucide-react'
+import { Search, Filter, X, Mail, Send, Sparkles, BookOpen } from 'lucide-react'
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
 
-  const categories = ['All', ...Array.from(new Set(blogs.map(b => b.category)))]
+  // Helper normalize
+  const normalized = (s?: string) => (s || '').toLowerCase().trim()
 
+  // Categories list with trim to avoid hidden spaces
+  const categories = ['All', ...Array.from(new Set(blogs.map(b => (b.category || '').trim())))]
+
+  // Filtered blogs with normalized comparisons
   const filteredBlogs = useMemo(() => {
     let result = blogs
 
     if (selectedCategory !== 'All') {
-      result = result.filter(b => b.category === selectedCategory)
+      const cat = normalized(selectedCategory)
+      result = result.filter(b => normalized(b.category) === cat)
     }
 
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase()
+      const q = normalized(searchQuery)
       result = result.filter(b => 
-        b.title.toLowerCase().includes(query) ||
-        b.excerpt.toLowerCase().includes(query) ||
-        b.tags?.some(tag => tag.toLowerCase().includes(query))
+        normalized(b.title).includes(q) ||
+        normalized(b.excerpt).includes(q) ||
+        (b.tags?.some(tag => normalized(tag).includes(q)))
       )
     }
 
     return result
   }, [selectedCategory, searchQuery])
 
+  // Featured: ثابت بماند و با فیلتر تغییر نکند (طبق خواسته که فقط گرید رفرش شود)
   const featuredBlog = blogs[0]
 
   const containerVariants = {
@@ -92,87 +99,90 @@ export default function BlogPage() {
           </motion.p>
         </motion.div>
 
-        {/* Featured Blog */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          whileHover={{ y: -5 }}
-          className="relative bg-white/60 backdrop-blur-xl rounded-[3rem] shadow-2xl border border-white/40 overflow-hidden mb-16 group"
-        >
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            
-            <div className="relative aspect-[16/9] lg:aspect-auto lg:h-full overflow-hidden">
-              <motion.img
-                src={featuredBlog.image}
-                alt={featuredBlog.title}
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-              />
+        {/* Featured Blog (fixed, does not change on filter) */}
+        {featuredBlog && (
+          <motion.div
+            key={featuredBlog.slug}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            whileHover={{ y: -5 }}
+            className="relative bg-white/60 backdrop-blur-xl rounded-[3rem] shadow-2xl border border-white/40 overflow-hidden mb-16 group"
+          >
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              
+              <div className="relative aspect-[16/9] lg:aspect-auto lg:h-full overflow-hidden">
+                <motion.img
+                  src={featuredBlog.image}
+                  alt={featuredBlog.title}
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.6 }}
+                />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                />
+              </div>
+              
+              <div className="p-8 lg:p-12">
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold mb-4 shadow-lg"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Featured
+                </motion.div>
+                
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-3xl lg:text-4xl font-black mb-4 text-gray-900"
+                >
+                  {featuredBlog.title}
+                </motion.h2>
+                
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-lg text-gray-600 mb-6 leading-relaxed"
+                >
+                  {featuredBlog.excerpt}
+                </motion.p>
+                
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex items-center gap-4 mb-6"
+                >
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    {featuredBlog.author.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">{featuredBlog.author}</p>
+                    <p className="text-xs text-gray-500">{featuredBlog.readTime}</p>
+                  </div>
+                </motion.div>
+                
+                <motion.a
+                  href={`/blog/${featuredBlog.slug}`}
+                  whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)' }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold shadow-xl shadow-blue-500/30"
+                >
+                  Read Full Article
+                  <Send className="w-5 h-5" />
+                </motion.a>
+              </div>
             </div>
-            
-            <div className="p-8 lg:p-12">
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 200 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold mb-4 shadow-lg"
-              >
-                <Sparkles className="w-4 h-4" />
-                Featured
-              </motion.div>
-              
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-3xl lg:text-4xl font-black mb-4 text-gray-900"
-              >
-                {featuredBlog.title}
-              </motion.h2>
-              
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="text-lg text-gray-600 mb-6 leading-relaxed"
-              >
-                {featuredBlog.excerpt}
-              </motion.p>
-              
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="flex items-center gap-4 mb-6"
-              >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                  {featuredBlog.author.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-gray-900">{featuredBlog.author}</p>
-                  <p className="text-xs text-gray-500">{featuredBlog.readTime}</p>
-                </div>
-              </motion.div>
-              
-              <motion.a
-                href={`/blog/${featuredBlog.slug}`}
-                whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)' }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold shadow-xl shadow-blue-500/30"
-              >
-                Read Full Article
-                <Send className="w-5 h-5" />
-              </motion.a>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
       </section>
 
       {/* Search & Filter */}
@@ -204,17 +214,21 @@ export default function BlogPage() {
             )}
           </div>
           
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2">
             <Filter className="w-5 h-5 text-gray-500 flex-shrink-0" />
             {categories.map((cat, i) => (
               <motion.button
                 key={cat}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * i }}
+                transition={{ delay: 0.05 * i }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => {
+                  setSelectedCategory(cat)
+                  // اختیاری: پاک‌کردن جستجو هنگام تغییر دسته
+                  // setSearchQuery('')
+                }}
                 className={`px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all shadow-lg ${
                   selectedCategory === cat
                     ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-blue-500/30'
@@ -228,19 +242,21 @@ export default function BlogPage() {
         </motion.div>
       </section>
 
-      {/* Blog Grid */}
+      {/* Blog Grid (only this part re-renders via key) */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pb-16">
         {filteredBlogs.length > 0 ? (
           <>
             <motion.div 
+              key={`count-${selectedCategory}-${searchQuery}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="mb-6 text-gray-600"
             >
               Showing <span className="font-bold text-gray-900">{filteredBlogs.length}</span> {filteredBlogs.length === 1 ? 'article' : 'articles'}
             </motion.div>
-            
+
             <motion.div 
+              key={`grid-${selectedCategory}-${searchQuery}`} // force re-render of grid per filter
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -256,14 +272,13 @@ export default function BlogPage() {
           </>
         ) : (
           <motion.div
+            key="no-results"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="text-center py-20"
           >
             <motion.div
-              animate={{ 
-                rotate: [0, 10, -10, 0],
-              }}
+              animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
               className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center"
             >
@@ -294,9 +309,7 @@ export default function BlogPage() {
         >
           {/* Animated Background Pattern */}
           <motion.div
-            animate={{
-              backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-            }}
+            animate={{ backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'] }}
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
             className="absolute inset-0 opacity-20"
             style={{
@@ -307,10 +320,7 @@ export default function BlogPage() {
           
           <div className="relative z-10">
             <motion.div
-              animate={{ 
-                rotate: [0, 10, -10, 0],
-                y: [0, -10, 0]
-              }}
+              animate={{ rotate: [0, 10, -10, 0], y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
               className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center"
             >
@@ -350,7 +360,7 @@ export default function BlogPage() {
               />
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)' }}
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 0.98 }}
                 className="bg-white text-blue-600 font-bold px-8 py-4 rounded-2xl hover:bg-gray-100 transition-colors shadow-lg flex items-center justify-center gap-2"
               >
                 <Send className="w-5 h-5" />

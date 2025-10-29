@@ -1,7 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Package, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Heart, ShieldCheck, Truck, CreditCard } from 'lucide-react'
+import {
+  Package, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube,
+  Heart, ShieldCheck, Truck, CreditCard
+} from 'lucide-react'
 
 export default function Footer() {
   const socialLinks = [
@@ -37,23 +40,22 @@ export default function Footer() {
     {
       title: 'Support',
       links: [
-        { label: 'Contact Us', href: '#' },
-        { label: 'Shipping Info', href: '#' },
-        { label: 'Returns', href: '#' },
-        { label: 'FAQ', href: '#' },
+        { label: 'Contact Us', href: '/contact' },
+        { label: 'Shipping Info', href: '/shipping' },
+        { label: 'Returns', href: '/returns' },
+        { label: 'FAQ', href: '/faq' },
         { label: 'Track Order', href: '/profile' },
-        { label: 'Service Centers', href: '#' },
+        { label: 'Service Centers', href: '/service-centers' },
       ]
     },
     {
       title: 'Company',
       links: [
-        { label: 'About Us', href: '#' },
-        { label: 'Blog', href: '/blog' },
-        { label: 'Careers', href: '#' },
-        { label: 'Press', href: '#' },
-        { label: 'Privacy Policy', href: '#' },
-        { label: 'Terms of Service', href: '#' },
+        { label: 'About Us', href: '/about' },
+        { label: 'Careers', href: '/careers' },
+        { label: 'Press', href: '/press' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Terms of Service', href: '/terms' },
       ]
     }
   ]
@@ -61,10 +63,9 @@ export default function Footer() {
   return (
     <footer className="mt-20 border-t border-gray-200 bg-white/40 backdrop-blur-xl">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
-        
+
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
-          
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -87,11 +88,11 @@ export default function Footer() {
                 <p className="text-xs text-gray-500">Premium Galaxy Experience</p>
               </div>
             </Link>
-            
+
             <p className="text-sm text-gray-600 mb-4 leading-relaxed">
               Your trusted destination for premium Samsung Galaxy devices and accessories. Experience innovation at its finest.
             </p>
-            
+
             <div className="flex gap-3">
               {socialLinks.map((social, i) => {
                 const Icon = social.icon
@@ -222,31 +223,17 @@ export default function Footer() {
           className="pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p className="text-sm text-gray-600 flex items-center gap-2">
-            © {new Date().getFullYear()} Samsung Store. Made with 
-            <motion.span
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            >
+            © {new Date().getFullYear()} Samsung Store. Made with
+            <motion.span animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
             </motion.span>
             using Next.js & Framer Motion
           </p>
-          
+
           <div className="flex gap-6 text-sm text-gray-600">
-            {['Privacy Policy', 'Terms of Service', 'Cookies Policy'].map((link, i) => (
-              <motion.a
-                key={link}
-                href="#"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 + i * 0.1 }}
-                whileHover={{ y: -2 }}
-                className="hover:text-blue-600 transition-colors"
-              >
-                {link}
-              </motion.a>
-            ))}
+            <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="hover:text-blue-600 transition-colors">Cookies</Link>
           </div>
         </motion.div>
 
