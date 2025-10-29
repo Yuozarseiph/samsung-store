@@ -1,10 +1,19 @@
-Here’s a concise English README you can drop into README.md.
+Samsung Store — Next.js App Router
+Modern, minimal, and premium storefront for Samsung devices. Built with Next.js (App Router), Tailwind CSS, Framer Motion, and Lucide.
 
-Samsung Store (Next.js)
-Modern, minimal, and premium Samsung storefront built with Next.js App Router, Tailwind, Framer Motion, and Lucide.
+✨ Highlights
+Elegant glassmorphism + subtle gradients
 
-Stack
-Next.js (App Router), TypeScript
+Smooth animations with Framer Motion
+
+Responsive, accessible UI
+
+JSON demo data (easily swappable with real API)
+
+Fully wired Header/Footer, deep navigation
+
+🧩 Tech Stack
+Next.js (App Router) + TypeScript
 
 Tailwind CSS
 
@@ -12,53 +21,63 @@ Framer Motion
 
 Lucide React
 
-Features
-Responsive UI with glassmorphism and subtle gradients
+📦 Features
+Home, Products, Product Details
 
-Animated pages/components (Header, Footer, Blog, Warranty, Checkout)
+Cart with coupons, shipping bar, wishlist move
 
-Auth (localStorage demo), Profile with Orders/Warranty
+Checkout (Shipping → Payment → Confirmation)
 
 Blog with category/search filters
 
-Support/Company pages: About, Contact, Shipping, Returns, FAQ, Service Centers, Careers, Press, Privacy, Terms, Cookies
+Auth (demo LocalStorage), Profile (Overview, Orders, Wishlist, Settings)
 
-Cart with coupons, wishlist move, shipping progress
+Warranty Center (serial search, certificate)
 
-Getting Started
-Install: npm i
+Company/Support pages: About, Contact, Shipping, Returns, FAQ, Service Centers, Careers, Press, Privacy, Terms, Cookies
 
-Dev: npm run dev (http://localhost:3000)
+🚀 Getting Started
+bash
+# 1) Install dependencies
+npm i
 
-Build: npm run build
+# 2) Dev server
+npm run dev
+# http://localhost:3000
 
-Start: npm start
+# 3) Production
+npm run build
+npm start
+🗂️ Project Notes
+Global CSS: only imports Tailwind; styles live in components
 
-Project Notes
-Global CSS only imports Tailwind; all styling in components
+Client components for interactive/animated sections
 
-Client components used where interaction/animation is needed
+Replace demo JSON with your API/DB when ready
 
-Demo data via JSON; replace with real API/DB as needed
+Keep env secrets in .env.local (gitignored)
 
-Scripts
-dev: Start development server
+🔐 Env (optional)
+text
+# .env.local
+# NEXT_PUBLIC_API_URL=...
+🧪 Lint & Format (optional)
+bash
+npm run lint
+# add Prettier/Husky if desired
+📦 Scripts
+dev: start dev server
 
-build: Production build
+build: production build
 
-start: Run production server
+start: serve production build
 
-lint/format (optional): add ESLint/Prettier/Husky as desired
+🛳️ Deploy
+Vercel recommended (auto-deploy from Git)
 
-Env
-Do not commit secrets
+Ensure proper Node version if needed
 
-Add .env.local for real integrations
+📝 License
+MIT — see LICENSE
 
-Deploy
-Vercel recommended (auto builds from Git)
-
-Ensure NODE_VERSION and NEXT_TELEMETRY_DISABLED if required
-
-License
-MIT (update as needed)
+Made with ❤️ by Yousef Shaker Ardakani
