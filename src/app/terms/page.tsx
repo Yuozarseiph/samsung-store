@@ -1,9 +1,18 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Scale, FileText, ShieldCheck, CreditCard, Truck, HelpCircle } from 'lucide-react'
 
-const toc = [
+type TocId =
+  | 'agreement'
+  | 'accounts'
+  | 'orders'
+  | 'shipping'
+  | 'returns'
+  | 'liability'
+  | 'support'
+
+const toc: { id: TocId; title: string }[] = [
   { id: 'agreement', title: 'Agreement' },
   { id: 'accounts', title: 'Accounts' },
   { id: 'orders', title: 'Orders & Payments' },
@@ -13,7 +22,7 @@ const toc = [
   { id: 'support', title: 'Support' },
 ]
 
-const content: Record<string, { icon: any, bullets: string[] }> = {
+const content: Record<TocId, { icon: any; bullets: string[] }> = {
   agreement: {
     icon: FileText,
     bullets: [
@@ -66,23 +75,10 @@ const content: Record<string, { icon: any, bullets: string[] }> = {
 }
 
 export default function TermsPage() {
-  const [active, setActive] = useState<string>('agreement')
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
+  const [active, setActive] = useState<TocId>('agreement')
 
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActive(visible[0].target.id)
-      },
-      { rootMargin: '-20% 0px -70% 0px', threshold: [0, 0.5, 1] }
-    )
-    Object.values(sectionRefs.current).forEach(el => el && obs.observe(el))
-    return () => obs.disconnect()
-  }, [])
-
-  const scrollTo = (id: string) => {
-    const el = sectionRefs.current[id]
+  const handleScrollTo = (id: TocId) => {
+    const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setActive(id)
   }
@@ -98,13 +94,14 @@ export default function TermsPage() {
         </div>
 
         <div className="grid lg:grid-cols-4 gap-8">
+          {/* TOC */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 shadow p-4">
               <nav className="space-y-1">
                 {toc.map((t) => (
                   <button
                     key={t.id}
-                    onClick={() => scrollTo(t.id)}
+                    onClick={() => handleScrollTo(t.id)}
                     className={`w-full text-left px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${
                       active === t.id ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' : 'hover:bg-blue-50 text-gray-700'
                     }`}
@@ -116,6 +113,7 @@ export default function TermsPage() {
             </div>
           </div>
 
+          {/* Content */}
           <div className="lg:col-span-3 space-y-6">
             {toc.map((t, i) => {
               const Icon = content[t.id].icon
@@ -123,7 +121,6 @@ export default function TermsPage() {
                 <motion.section
                   id={t.id}
                   key={t.id}
-                  ref={(el) => (sectionRefs.current[t.id] = el)}
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
