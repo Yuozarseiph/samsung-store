@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
@@ -79,46 +79,10 @@ export default function PrivacyPage() {
     ],
   }
 
-  const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
-    intro: null,
-    'data-we-collect': null,
-    'how-we-use': null,
-    cookies: null,
-    sharing: null,
-    'your-rights': null,
-    security: null,
-    contact: null,
-    'last-updated': null,
-  })
-
-  const setSectionRef = useCallback((id: SectionId) => {
-    return (el: HTMLDivElement | null): void => {
-      sectionRefs.current[id] = el
-    }
-  }, [])
-
   const [active, setActive] = useState<SectionId>('intro')
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActive(visible[0].target.id as SectionId)
-      },
-      { rootMargin: '-20% 0px -70% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
-    )
-
-    Object.values(sectionRefs.current).forEach((el) => {
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
   const handleScrollTo = (id: SectionId) => {
-    const el = sectionRefs.current[id]
+    const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setActive(id)
   }
@@ -147,7 +111,7 @@ export default function PrivacyPage() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 240 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to紫-600 text-white text-sm font-semibold shadow-lg"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold shadow-lg"
               >
                 <Shield className="w-4 h-4" />
                 Privacy Policy
@@ -240,23 +204,21 @@ export default function PrivacyPage() {
                 transition={{ duration: 0.4 }}
                 className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white/40 shadow-lg scroll-mt-28"
               >
-                <div ref={setSectionRef(s.id)}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center shadow-lg">
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-900">{s.title}</h2>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center shadow-lg">
+                    <Icon className="w-5 h-5 text-white" />
                   </div>
-
-                  <ul className="space-y-2">
-                    {content[s.id].map((text, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-gray-700">
-                        <span className="mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
-                        <span>{text}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-900">{s.title}</h2>
                 </div>
+
+                <ul className="space-y-2">
+                  {content[s.id].map((text, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-gray-700">
+                      <span className="mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
               </motion.section>
             )
           })}
