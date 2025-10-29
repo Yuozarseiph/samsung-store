@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
-  Shield, Lock, Eye, UserCheck, Cookie, Database, Mail, Globe,
+  Shield, Lock, UserCheck, Cookie, Database, Mail, Globe,
   Calendar, Download, ArrowLeft, CheckCircle2, Info, FileText, ChevronLeft, ChevronRight
 } from 'lucide-react'
 
@@ -79,8 +79,7 @@ export default function PrivacyPage() {
     ],
   }
 
-  // 🔧 ذخیره رفرنس هر بخش
-  const sectionRefs = useRef<Record<SectionId, HTMLElement | null>>({
+  const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
     intro: null,
     'data-we-collect': null,
     'how-we-use': null,
@@ -92,13 +91,11 @@ export default function PrivacyPage() {
     'last-updated': null,
   })
 
-  // ✅ تابع استاندارد برای ست کردن ref بدون خطا
-  const setSectionRef = useCallback(
-    (id: SectionId) => (el: HTMLElement | null) => {
+  const setSectionRef = useCallback((id: SectionId) => {
+    return (el: HTMLDivElement | null): void => {
       sectionRefs.current[id] = el
-    },
-    []
-  )
+    }
+  }, [])
 
   const [active, setActive] = useState<SectionId>('intro')
 
@@ -150,7 +147,7 @@ export default function PrivacyPage() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 240 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold shadow-lg"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to紫-600 text-white text-sm font-semibold shadow-lg"
               >
                 <Shield className="w-4 h-4" />
                 Privacy Policy
@@ -176,7 +173,6 @@ export default function PrivacyPage() {
           </div>
         </motion.div>
 
-        {/* Sticky Topics Bar */}
         <div className="sticky top-20 z-30 mb-6">
           <div className="rounded-2xl">
             <div className="relative">
@@ -238,28 +234,29 @@ export default function PrivacyPage() {
               <motion.section
                 id={s.id}
                 key={s.id}
-                ref={setSectionRef(s.id)} {/* ✅ استفاده از تابع اصلاح‌شده */}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
                 transition={{ duration: 0.4 }}
                 className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white/40 shadow-lg scroll-mt-28"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center shadow-lg">
-                    <Icon className="w-5 h-5 text-white" />
+                <div ref={setSectionRef(s.id)}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center shadow-lg">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-900">{s.title}</h2>
                   </div>
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900">{s.title}</h2>
-                </div>
 
-                <ul className="space-y-2">
-                  {content[s.id].map((text, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-gray-700">
-                      <span className="mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
-                      <span>{text}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="space-y-2">
+                    {content[s.id].map((text, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-gray-700">
+                        <span className="mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
+                        <span>{text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.section>
             )
           })}
