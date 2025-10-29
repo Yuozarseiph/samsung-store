@@ -7,8 +7,19 @@ import {
   Calendar, Download, ArrowLeft, CheckCircle2, Info, FileText, ChevronLeft, ChevronRight
 } from 'lucide-react'
 
+type SectionId =
+  | 'intro'
+  | 'data-we-collect'
+  | 'how-we-use'
+  | 'cookies'
+  | 'sharing'
+  | 'your-rights'
+  | 'security'
+  | 'contact'
+  | 'last-updated'
+
 export default function PrivacyPage() {
-  const sections = [
+  const sections: { id: SectionId; icon: any; title: string }[] = [
     { id: 'intro', icon: Shield, title: 'Introduction' },
     { id: 'data-we-collect', icon: Database, title: 'Data We Collect' },
     { id: 'how-we-use', icon: FileText, title: 'How We Use Data' },
@@ -20,7 +31,7 @@ export default function PrivacyPage() {
     { id: 'last-updated', icon: Calendar, title: 'Last Updated' },
   ]
 
-  const content: Record<string, string[]> = {
+  const content: Record<SectionId, string[]> = {
     intro: [
       'We value your privacy and are committed to protecting your personal data.',
       'This policy explains what data we collect, how we use it, and your rights.',
@@ -68,25 +79,43 @@ export default function PrivacyPage() {
     ],
   }
 
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
-  const [active, setActive] = useState<string>('intro')
+  const sectionRefs = useRef<Record<SectionId, HTMLElement | null>>({
+    intro: null,
+    'data-we-collect': null,
+    'how-we-use': null,
+    cookies: null,
+    sharing: null,
+    'your-rights': null,
+    security: null,
+    contact: null,
+    'last-updated': null,
+  })
+
+  const [active, setActive] = useState<SectionId>('intro')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
-          .filter(e => e.isIntersecting)
+          .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActive(visible[0].target.id)
+        if (visible[0]) setActive(visible[0].target.id as SectionId)
       },
       { rootMargin: '-20% 0px -70% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
     )
 
-    Object.values(sectionRefs.current).forEach(el => { if (el) observer.observe(el) })
+    Object.values(sectionRefs.current).forEach((el) => {
+      if (el) observer.observe(el)
+    })
+
     return () => observer.disconnect()
   }, [])
 
-  const handleScrollTo = (id: string) => {
+  const setSectionRef = (id: SectionId) => (el: HTMLElement | null) => {
+    sectionRefs.current[id] = el
+  }
+
+  const handleScrollTo = (id: SectionId) => {
     const el = sectionRefs.current[id]
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setActive(id)
@@ -101,12 +130,11 @@ export default function PrivacyPage() {
   }
 
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } }
-  const item = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-16">
-
+        {/* Header */}
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
           <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 font-semibold">
             <ArrowLeft className="w-5 h-5" />
@@ -144,8 +172,9 @@ export default function PrivacyPage() {
           </div>
         </motion.div>
 
+        {/* Sticky Topics Bar */}
         <div className="sticky top-20 z-30 mb-6">
-          <div className="rounded-2xl ">
+          <div className="rounded-2xl">
             <div className="relative">
               <button
                 aria-label="Scroll topics left"
@@ -191,6 +220,7 @@ export default function PrivacyPage() {
           </div>
         </div>
 
+        {/* Info note */}
         <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-start gap-3">
           <Info className="w-5 h-5 text-blue-600 mt-0.5" />
           <p className="text-sm text-blue-900">
@@ -198,14 +228,15 @@ export default function PrivacyPage() {
           </p>
         </motion.div>
 
-        <motion.div variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} initial="hidden" animate="show" className="space-y-8">
+        {/* Sections */}
+        <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
           {sections.map((s) => {
             const Icon = s.icon
             return (
               <motion.section
                 id={s.id}
                 key={s.id}
-                ref={(el) => (sectionRefs.current[s.id] = el)}
+                ref={setSectionRef(s.id)}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
@@ -232,14 +263,26 @@ export default function PrivacyPage() {
           })}
         </motion.div>
 
-        <motion.div id="download" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-10 p-5 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* Download */}
+        <motion.div
+          id="download"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 p-5 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+        >
           <div className="flex items-start gap-3">
             <Globe className="w-5 h-5 text-gray-600 mt-0.5" />
             <p className="text-sm text-gray-700">
               This policy applies to our website and related services worldwide. Region-specific notices may apply.
             </p>
           </div>
-          <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} href="#" className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white border-2 border-gray-200 hover:border-blue-500 transition-colors font-semibold">
+          <motion.a
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            href="#"
+            className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white border-2 border-gray-200 hover:border-blue-500 transition-colors font-semibold"
+          >
             <Download className="w-5 h-5" />
             Download PDF
           </motion.a>
