@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Here’s a concise English README you can drop into README.md.
 
-## Getting Started
+Samsung Store (Next.js)
+Modern, minimal, and premium Samsung storefront built with Next.js App Router, Tailwind, Framer Motion, and Lucide.
 
-First, run the development server:
+Stack
+Next.js (App Router), TypeScript
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Tailwind CSS
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Framer Motion
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Lucide React
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Features
+Responsive UI with glassmorphism and subtle gradients
 
-## Learn More
+Animated pages/components (Header, Footer, Blog, Warranty, Checkout)
 
-To learn more about Next.js, take a look at the following resources:
+Auth (localStorage demo), Profile with Orders/Warranty
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Blog with category/search filters
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Support/Company pages: About, Contact, Shipping, Returns, FAQ, Service Centers, Careers, Press, Privacy, Terms, Cookies
 
-## Deploy on Vercel
+Cart with coupons, wishlist move, shipping progress
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Getting Started
+Install: npm i
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dev: npm run dev (http://localhost:3000)
+
+Build: npm run build
+
+Start: npm start
+
+Project Notes
+Global CSS only imports Tailwind; all styling in components
+
+Client components used where interaction/animation is needed
+
+Demo data via JSON; replace with real API/DB as needed
+
+Scripts
+dev: Start development server
+
+build: Production build
+
+start: Run production server
+
+lint/format (optional): add ESLint/Prettier/Husky as desired
+
+Env
+Do not commit secrets
+
+Add .env.local for real integrations
+
+Deploy
+Vercel recommended (auto builds from Git)
+
+Ensure NODE_VERSION and NEXT_TELEMETRY_DISABLED if required
+
+License
+MIT (update as needed)
