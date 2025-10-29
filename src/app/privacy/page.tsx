@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import {
@@ -91,6 +91,12 @@ export default function PrivacyPage() {
     'last-updated': null,
   })
 
+  const setSectionRef = useCallback((id: SectionId) => {
+    return (el: HTMLElement | null): void => {
+      sectionRefs.current[id] = el
+    }
+  }, [])
+
   const [active, setActive] = useState<SectionId>('intro')
 
   useEffect(() => {
@@ -111,10 +117,6 @@ export default function PrivacyPage() {
     return () => observer.disconnect()
   }, [])
 
-  const setSectionRef = (id: SectionId) => (el: HTMLElement | null) => {
-    sectionRefs.current[id] = el
-  }
-
   const handleScrollTo = (id: SectionId) => {
     const el = sectionRefs.current[id]
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -134,7 +136,6 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-16">
-        {/* Header */}
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
           <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 font-semibold">
             <ArrowLeft className="w-5 h-5" />
@@ -220,7 +221,6 @@ export default function PrivacyPage() {
           </div>
         </div>
 
-        {/* Info note */}
         <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-start gap-3">
           <Info className="w-5 h-5 text-blue-600 mt-0.5" />
           <p className="text-sm text-blue-900">
@@ -228,7 +228,6 @@ export default function PrivacyPage() {
           </p>
         </motion.div>
 
-        {/* Sections */}
         <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
           {sections.map((s) => {
             const Icon = s.icon
@@ -263,7 +262,6 @@ export default function PrivacyPage() {
           })}
         </motion.div>
 
-        {/* Download */}
         <motion.div
           id="download"
           initial={{ opacity: 0, y: 8 }}
