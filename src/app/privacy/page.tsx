@@ -79,6 +79,7 @@ export default function PrivacyPage() {
     ],
   }
 
+  // 🔧 ذخیره رفرنس هر بخش
   const sectionRefs = useRef<Record<SectionId, HTMLElement | null>>({
     intro: null,
     'data-we-collect': null,
@@ -91,11 +92,13 @@ export default function PrivacyPage() {
     'last-updated': null,
   })
 
-  const setSectionRef = useCallback((id: SectionId) => {
-    return (el: HTMLElement | null): void => {
+  // ✅ تابع استاندارد برای ست کردن ref بدون خطا
+  const setSectionRef = useCallback(
+    (id: SectionId) => (el: HTMLElement | null) => {
       sectionRefs.current[id] = el
-    }
-  }, [])
+    },
+    []
+  )
 
   const [active, setActive] = useState<SectionId>('intro')
 
@@ -235,7 +238,7 @@ export default function PrivacyPage() {
               <motion.section
                 id={s.id}
                 key={s.id}
-                ref={setSectionRef(s.id)}
+                ref={setSectionRef(s.id)} {/* ✅ استفاده از تابع اصلاح‌شده */}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
