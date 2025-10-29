@@ -4,24 +4,30 @@ import { usePathname, useRouter } from 'next/navigation'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   Home, Package, BookOpen, ShoppingCart, Menu, X, Search,
-  User, LogOut, Heart
+  User, LogOut, Heart,
+  Info as InfoIcon,
+  Mail as MailIcon,
+  Truck as TruckIcon,
+  HelpCircle,
+  MapPin as MapIcon,
+  Shield as ShieldIcon,
+  Scale as ScaleIcon
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { AuthService } from '@/utils/auth'
 
-type NavItem = { href: string; label: string; icon: any | null }
+type NavItem = { href: string; label: string; icon: any }
 
 const navItems: NavItem[] = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/products', label: 'Products', icon: Package },
   { href: '/blog', label: 'Blog', icon: BookOpen },
-  { href: '/about', label: 'About', icon: null },
-  { href: '/contact', label: 'Contact', icon: null },
-  { href: '/shipping', label: 'Shipping', icon: null },
-  { href: '/returns', label: 'Returns', icon: null },
-  { href: '/faq', label: 'FAQ', icon: null },
-  { href: '/service-centers', label: 'Service', icon: null },
-  { href: '/terms', label: 'Terms', icon: null },
+  { href: '/about', label: 'About', icon: InfoIcon },
+  { href: '/contact', label: 'Contact', icon: MailIcon },
+  { href: '/faq', label: 'FAQ', icon: HelpCircle },
+  { href: '/service-centers', label: 'Service', icon: MapIcon },
+  { href: '/privacy', label: 'Privacy', icon: ShieldIcon },
+  { href: '/terms', label: 'Terms', icon: ScaleIcon },
 ]
 
 export default function Header() {
@@ -73,7 +79,6 @@ export default function Header() {
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <motion.div
               whileHover={{ rotate: 360, scale: 1.1 }}
@@ -90,7 +95,6 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map(item => {
               const Icon = item.icon
@@ -106,7 +110,7 @@ export default function Header() {
                         : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                     }`}
                   >
-                    {Icon ? <Icon className="w-4 h-4" /> : null}
+                    <Icon className="w-4 h-4" />
                     <span>{item.label}</span>
                   </motion.div>
                 </Link>
@@ -114,7 +118,6 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Right Actions */}
           <div className="hidden lg:flex items-center gap-3">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -143,7 +146,6 @@ export default function Header() {
               </motion.button>
             </Link>
 
-            {/* User Menu */}
             {user ? (
               <div className="relative">
                 <motion.button
@@ -223,8 +225,6 @@ export default function Header() {
               </div>
             )}
           </div>
-
-          {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -234,7 +234,6 @@ export default function Header() {
           </motion.button>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
@@ -255,21 +254,16 @@ export default function Header() {
                           : 'hover:bg-blue-50 text-gray-600'
                       }`}
                     >
-                      {Icon ? <Icon className="w-5 h-5" /> : <span className="w-5 h-5" />}
+                      <Icon className="w-5 h-5" />
                       <span className="font-medium">{item.label}</span>
                     </motion.div>
                   </Link>
                 )
               })}
             </nav>
-
-            {/* Mobile User Section */}
-            {/* همان بخش پروفایل/لاگین که قبلاً بود، بدون تغییر */}
           </motion.div>
         )}
       </div>
-
-      {/* Progress Bar */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 origin-left"
         style={{ scaleX: useTransform(scrollY, [0, 1000], [0, 1]) }}

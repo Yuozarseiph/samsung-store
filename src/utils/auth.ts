@@ -9,9 +9,7 @@ interface User {
 }
 
 export const AuthService = {
-  // Login
   login: (email: string, password: string): User | null => {
-    // در واقعیت باید از API استفاده کنی
     if (typeof window !== 'undefined') {
       const mockUser: User = {
         id: 'user-001',
@@ -28,7 +26,6 @@ export const AuthService = {
     return null
   },
 
-  // Register
   register: (userData: any): User | null => {
     if (typeof window !== 'undefined') {
       const newUser: User = {
@@ -45,7 +42,6 @@ export const AuthService = {
     return null
   },
 
-  // Logout
   logout: () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('user')
@@ -53,7 +49,6 @@ export const AuthService = {
     }
   },
 
-  // Get Current User
   getCurrentUser: (): User | null => {
     if (typeof window !== 'undefined') {
       const userStr = localStorage.getItem('user')
@@ -62,7 +57,6 @@ export const AuthService = {
     return null
   },
 
-  // Check if Authenticated
   isAuthenticated: (): boolean => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('isAuthenticated') === 'true'
@@ -70,7 +64,6 @@ export const AuthService = {
     return false
   },
 
-  // Update Profile
   updateProfile: (userData: Partial<User>): User | null => {
     if (typeof window !== 'undefined') {
       const currentUser = AuthService.getCurrentUser()

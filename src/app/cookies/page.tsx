@@ -10,7 +10,7 @@ type CookiePrefs = {
 }
 
 const DEFAULT_PREFS: CookiePrefs = {
-  essential: true,     // همیشه فعال و غیرقابل تغییر
+  essential: true,
   analytics: false,
   marketing: false,
 }
@@ -20,7 +20,6 @@ export default function CookiesPage() {
   const [bannerOpen, setBannerOpen] = useState(false)
   const [saved, setSaved] = useState(false)
 
-  // بارگذاری/ذخیره ترجیحات
   useEffect(() => {
     try {
       const stored = localStorage.getItem('cookie_prefs')
@@ -28,7 +27,6 @@ export default function CookiesPage() {
         const parsed = JSON.parse(stored)
         setPrefs({ essential: true, analytics: !!parsed.analytics, marketing: !!parsed.marketing })
       } else {
-        // اگر قبلاً چیزی ذخیره نشده، بنر را نمایش بده
         setBannerOpen(true)
       }
     } catch {
@@ -106,7 +104,6 @@ export default function CookiesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12">
-        {/* Header */}
         <div className="mb-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold shadow">
             <Cookie className="w-4 h-4" />
@@ -120,7 +117,6 @@ export default function CookiesPage() {
           <p className="text-gray-600 mt-2">Control how we use cookies to improve your experience.</p>
         </div>
 
-        {/* Preferences Card */}
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white/40 shadow mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-1">Manage preferences</h2>
           <p className="text-sm text-gray-600 mb-4">
@@ -128,7 +124,6 @@ export default function CookiesPage() {
           </p>
 
           <div className="divide-y divide-gray-200">
-            {/* Essential */}
             <PrefRow
               title="Essential"
               description="Needed for authentication, cart, and core site security."
@@ -137,7 +132,6 @@ export default function CookiesPage() {
               onChange={() => {}}
               icon={<ShieldCheck className="w-5 h-5 text-green-600" />}
             />
-            {/* Analytics */}
             <PrefRow
               title="Analytics"
               description="Helps us improve performance and experience."
@@ -145,7 +139,6 @@ export default function CookiesPage() {
               onChange={() => onToggle('analytics')}
               icon={<BarChart3 className="w-5 h-5 text-blue-600" />}
             />
-            {/* Marketing */}
             <PrefRow
               title="Marketing"
               description="Personalized offers and campaign insights."
@@ -198,7 +191,6 @@ export default function CookiesPage() {
           </div>
         </div>
 
-        {/* Sections */}
         <div className="grid md:grid-cols-2 gap-6">
           {sections.map((s, i) => {
             const Icon = s.icon
@@ -231,7 +223,6 @@ export default function CookiesPage() {
         </div>
       </div>
 
-      {/* Cookie Banner */}
       <AnimatePresence>
         {bannerOpen && (
           <motion.div

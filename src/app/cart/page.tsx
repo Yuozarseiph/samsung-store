@@ -18,7 +18,6 @@ export default function CartPage() {
   const [appliedCoupon, setAppliedCoupon] = useState<any>(null)
   const [showCouponError, setShowCouponError] = useState(false)
 
-  // Mock coupons
   const validCoupons = [
     { code: 'SAVE10', discount: 0.1, minAmount: 0 },
     { code: 'SAVE20', discount: 0.2, minAmount: 100 },
@@ -36,7 +35,6 @@ export default function CartPage() {
     setCart(updated)
     localStorage.setItem('cart', JSON.stringify(updated))
     
-    // Trigger storage event for header update
     window.dispatchEvent(new Event('storage'))
   }
 
@@ -49,9 +47,7 @@ export default function CartPage() {
   }
 
   const moveToWishlist = (index: number) => {
-    // Remove from cart and add to wishlist
     removeItem(index)
-    // In a real app, you'd add to wishlist here
   }
 
   const applyCoupon = () => {
@@ -141,7 +137,6 @@ export default function CartPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
         
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -187,7 +182,6 @@ export default function CartPage() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           
-          {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
             <AnimatePresence mode="popLayout">
               {cart.map((item, index) => (
@@ -201,7 +195,6 @@ export default function CartPage() {
                   className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 border border-white/40 shadow-lg hover:shadow-xl transition-shadow"
                 >
                   <div className="flex gap-6">
-                    {/* Product Image */}
                     <motion.div
                       whileHover={{ scale: 1.05, rotate: 2 }}
                       className="relative flex-shrink-0"
@@ -218,7 +211,6 @@ export default function CartPage() {
                       )}
                     </motion.div>
                     
-                    {/* Product Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -237,7 +229,6 @@ export default function CartPage() {
                           </div>
                         </div>
                         
-                        {/* Actions */}
                         <div className="flex gap-2">
                           <motion.button
                             whileHover={{ scale: 1.1, rotate: 15 }}
@@ -261,7 +252,6 @@ export default function CartPage() {
                       </div>
 
                       <div className="flex items-end justify-between">
-                        {/* Quantity Controls */}
                         <div className="flex items-center gap-3 bg-white rounded-2xl p-2 border-2 border-gray-200 shadow-lg">
                           <motion.button
                             whileHover={{ scale: 1.1 }}
@@ -291,7 +281,6 @@ export default function CartPage() {
                           </motion.button>
                         </div>
 
-                        {/* Price */}
                         <div className="text-right">
                           <p className="text-sm text-gray-500 line-through mb-1">
                             {formatPrice(item.price * 1.2 * item.quantity)}
@@ -307,7 +296,6 @@ export default function CartPage() {
               ))}
             </AnimatePresence>
 
-            {/* Coupon Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -395,7 +383,6 @@ export default function CartPage() {
             </motion.div>
           </div>
 
-          {/* Order Summary (Sidebar) */}
           <div className="lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -517,7 +504,6 @@ export default function CartPage() {
                 Continue Shopping
               </motion.button>
 
-              {/* Trust Badges */}
               <div className="pt-6 border-t border-gray-200">
                 <p className="text-xs font-bold text-gray-600 mb-4">We Accept:</p>
                 <div className="grid grid-cols-3 gap-3">

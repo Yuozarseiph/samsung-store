@@ -31,7 +31,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       
-      {/* Hero Section */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-20">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -40,7 +39,6 @@ export default function HomePage() {
           className="relative bg-white/60 backdrop-blur-2xl rounded-[3rem] overflow-hidden border border-white/40 shadow-2xl"
         >
           
-          {/* Animated Background Gradient */}
           <motion.div
             animate={{
               backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
@@ -141,7 +139,6 @@ export default function HomePage() {
                 />
               </motion.div>
               
-              {/* Floating Elements */}
               <motion.div
                 animate={{
                   y: [0, -15, 0],
@@ -157,7 +154,6 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Featured Products */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -197,7 +193,6 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Features Section */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-20 mb-20">
         <motion.div 
           variants={containerVariants}
@@ -232,7 +227,6 @@ export default function HomePage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
                   <p className="text-gray-600">{feature.desc}</p>
                   
-                  {/* Glow Effect on Hover */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}

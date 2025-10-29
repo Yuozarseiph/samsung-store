@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Briefcase, MapPin, Clock, Send, ChevronRight, Sparkles } from 'lucide-react'
+import {  MapPin, Clock, Send, ChevronRight, Sparkles } from 'lucide-react'
 
 const jobs = [
   { title: 'Senior Frontend Engineer', location: 'Remote / EU', type: 'Full-time', summary: 'Build premium experiences with Next.js and Motion.' },
@@ -12,7 +12,6 @@ export default function CareersPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12">
-        {/* Hero */}
         <div className="mb-10 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold shadow">
             <Sparkles className="w-4 h-4" />
@@ -23,8 +22,6 @@ export default function CareersPage() {
           </h1>
           <p className="text-gray-600 mt-2">Build delightful products for millions of users.</p>
         </div>
-
-        {/* Positions */}
         <div className="space-y-4">
           {jobs.map((job, i) => (
             <motion.div
@@ -57,8 +54,6 @@ export default function CareersPage() {
             </motion.div>
           ))}
         </div>
-
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}

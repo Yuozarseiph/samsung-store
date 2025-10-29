@@ -12,14 +12,12 @@ export default function ProductsPage() {
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))]
 
   const filtered = useMemo(() => {
-    let result = [...products] // کپی آرایه
+    let result = [...products]
     
-    // فیلتر بر اساس دسته‌بندی
     if (category !== 'All') {
       result = result.filter(p => p.category === category)
     }
     
-    // فیلتر بر اساس جستجو
     if (search.trim()) {
       const term = search.toLowerCase()
       result = result.filter(p => {
@@ -56,7 +54,6 @@ export default function ProductsPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
         
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,7 +77,6 @@ export default function ProductsPage() {
           <p className="text-xl text-gray-600">Discover our complete collection of Galaxy devices</p>
         </motion.div>
         
-        {/* Search & Filter */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -136,7 +132,6 @@ export default function ProductsPage() {
           </div>
         </motion.div>
 
-        {/* Results Count */}
         <motion.div 
           key={`results-${filtered.length}`}
           initial={{ opacity: 0, y: -10 }}
@@ -158,7 +153,6 @@ export default function ProductsPage() {
           </p>
         </motion.div>
 
-        {/* Products Grid */}
         {filtered.length > 0 ? (
           <motion.div 
             key={`grid-${category}-${search}`}

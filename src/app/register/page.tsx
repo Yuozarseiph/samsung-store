@@ -26,7 +26,6 @@ export default function RegisterPage() {
     e.preventDefault()
     setError('')
 
-    // Validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
       setError('Please fill in all required fields')
       return
@@ -49,7 +48,6 @@ export default function RegisterPage() {
 
     setLoading(true)
 
-    // Simulate API call
     setTimeout(() => {
       const user = AuthService.register(formData)
       if (user) {
@@ -68,7 +66,6 @@ export default function RegisterPage() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-2xl"
       >
-        {/* Logo & Title */}
         <div className="text-center mb-8">
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -100,7 +97,6 @@ export default function RegisterPage() {
           </motion.p>
         </div>
 
-        {/* Register Form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,7 +104,6 @@ export default function RegisterPage() {
           className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-2xl"
         >
           <form onSubmit={handleRegister} className="space-y-6">
-            {/* Name Fields */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-2">First Name *</label>
@@ -140,7 +135,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Email & Phone */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-2">Email Address *</label>
@@ -171,7 +165,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Password Fields */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-2">Password *</label>
@@ -221,7 +214,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Error Message */}
             {error && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -232,7 +224,6 @@ export default function RegisterPage() {
               </motion.div>
             )}
 
-            {/* Terms Agreement */}
             <div>
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
@@ -254,7 +245,6 @@ export default function RegisterPage() {
               </label>
             </div>
 
-            {/* Submit Button */}
             <motion.button
               type="submit"
               disabled={loading}
@@ -281,7 +271,6 @@ export default function RegisterPage() {
             </motion.button>
           </form>
 
-          {/* Sign In Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
             Already have an account?{' '}
             <Link href="/login" className="text-blue-600 hover:text-purple-600 font-bold">

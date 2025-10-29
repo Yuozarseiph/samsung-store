@@ -13,7 +13,7 @@ export default function CheckoutPage() {
   const router = useRouter()
   const [cart, setCart] = useState<any[]>([])
   const [user, setUser] = useState<any>(null)
-  const [step, setStep] = useState(1) // 1: Shipping, 2: Payment, 3: Confirmation
+  const [step, setStep] = useState(1)
   const [orderPlaced, setOrderPlaced] = useState(false)
 
   const [shippingInfo, setShippingInfo] = useState({
@@ -129,7 +129,6 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
         
-        {/* Progress Steps */}
         <div className="mb-12">
           <div className="flex items-center justify-between max-w-2xl mx-auto">
             {[
@@ -168,7 +167,6 @@ export default function CheckoutPage() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           
-          {/* Form */}
           <div className="lg:col-span-2">
             {step === 1 && (
               <motion.div
@@ -423,8 +421,6 @@ export default function CheckoutPage() {
               </motion.div>
             )}
           </div>
-
-          {/* Order Summary (Sidebar) */}
           <div className="lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, x: 20 }}

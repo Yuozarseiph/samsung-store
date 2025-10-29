@@ -64,9 +64,7 @@ export default function Footer() {
     <footer className="mt-20 border-t border-gray-200 bg-white/40 backdrop-blur-xl">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
 
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
-          {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +113,6 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Links */}
           {footerLinks.map((section, i) => (
             <motion.div
               key={section.title}
@@ -149,7 +146,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Trust Badges */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -185,7 +181,6 @@ export default function Footer() {
           })}
         </motion.div>
 
-        {/* Newsletter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -214,7 +209,6 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -227,7 +221,7 @@ export default function Footer() {
             <motion.span animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
             </motion.span>
-            using Next.js & Framer Motion
+            by <a href='https://yuozarseiph.top'>Yousef Shaker Ardakani</a>
           </p>
 
           <div className="flex gap-6 text-sm text-gray-600">
@@ -237,7 +231,6 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        {/* Contact Info */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -74,7 +74,6 @@ export default function WarrantyPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
         
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -110,7 +109,6 @@ export default function WarrantyPage() {
           </div>
         </motion.div>
 
-        {/* Search Bar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -141,7 +139,6 @@ export default function WarrantyPage() {
         {userOrders.length > 0 ? (
           <div className="grid lg:grid-cols-3 gap-8">
             
-            {/* Warranty List */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -197,7 +194,6 @@ export default function WarrantyPage() {
               </div>
             </motion.div>
 
-            {/* Warranty Details */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -206,9 +202,7 @@ export default function WarrantyPage() {
               {selectedOrder && (
                 <div className="space-y-6">
                   
-                  {/* Warranty Card */}
                   <div className="bg-white/60 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/40 shadow-2xl">
-                    {/* Header with Gradient */}
                     <div className={`bg-gradient-to-r ${getWarrantyStatus(selectedOrder.warranty.expiresAt).color} p-8 text-white relative overflow-hidden`}>
                       <motion.div
                         animate={{
@@ -251,9 +245,7 @@ export default function WarrantyPage() {
                       </div>
                     </div>
 
-                    {/* Body */}
                     <div className="p-8">
-                      {/* Product Info */}
                       <div className="flex items-center gap-6 mb-8 p-6 bg-gray-50 rounded-2xl">
                         <img
                           src={selectedOrder.items[0].image}
@@ -278,7 +270,6 @@ export default function WarrantyPage() {
                         </div>
                       </div>
 
-                      {/* Warranty Details Grid */}
                       <div className="grid md:grid-cols-2 gap-4 mb-8">
                         {[
                           { 
@@ -335,7 +326,6 @@ export default function WarrantyPage() {
                         })}
                       </div>
 
-                      {/* Coverage */}
                       <div className="p-6 bg-blue-50 rounded-2xl border border-blue-200 mb-8">
                         <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                           <CheckCircle2 className="w-5 h-5 text-blue-600" />
@@ -364,7 +354,6 @@ export default function WarrantyPage() {
                         </ul>
                       </div>
 
-                      {/* Actions */}
                       <div className="flex flex-wrap gap-3">
                         <motion.button
                           whileHover={{ scale: 1.02 }}
@@ -394,7 +383,6 @@ export default function WarrantyPage() {
                     </div>
                   </div>
 
-                  {/* Customer Support */}
                   <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-lg">
                     <h3 className="text-2xl font-black mb-6">Need Help?</h3>
                     <div className="grid md:grid-cols-3 gap-4">

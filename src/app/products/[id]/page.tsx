@@ -100,7 +100,6 @@ export default function ProductDetailPage() {
 
         <div className="grid lg:grid-cols-2 gap-12">
           
-          {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -138,7 +137,6 @@ export default function ProductDetailPage() {
             </div>
           </motion.div>
 
-          {/* Details */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -204,7 +202,6 @@ export default function ProductDetailPage() {
               </motion.span>
             </motion.div>
 
-            {/* Colors */}
             {product.colors && product.colors.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -240,7 +237,6 @@ export default function ProductDetailPage() {
               </motion.div>
             )}
 
-            {/* Storage */}
             {product.storage && product.storage.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -275,7 +271,6 @@ export default function ProductDetailPage() {
               </motion.div>
             )}
 
-            {/* Actions */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -320,7 +315,6 @@ export default function ProductDetailPage() {
               </motion.button>
             </motion.div>
 
-            {/* Features */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -351,7 +345,6 @@ export default function ProductDetailPage() {
               })}
             </motion.div>
 
-            {/* Specs */}
             {product.specs && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

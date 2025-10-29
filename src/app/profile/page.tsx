@@ -42,7 +42,6 @@ export default function ProfilePage() {
       address: currentUser.address?.street || ''
     })
 
-    // Load user orders
     const filteredOrders = orders.filter(o => o.userId === currentUser.id)
     setUserOrders(filteredOrders)
   }, [router])
@@ -96,7 +95,6 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
         
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,7 +123,6 @@ export default function ProfilePage() {
 
         <div className="grid lg:grid-cols-4 gap-8">
           
-          {/* Sidebar */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -133,7 +130,6 @@ export default function ProfilePage() {
           >
             <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 border border-white/40 shadow-lg sticky top-24">
               
-              {/* Avatar */}
               <div className="text-center mb-6">
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
@@ -151,7 +147,6 @@ export default function ProfilePage() {
                 <p className="text-sm text-gray-600">{user.email}</p>
               </div>
 
-              {/* Navigation */}
               <nav className="space-y-2">
                 {[
                   { id: 'overview', label: 'Overview', icon: User },
@@ -181,18 +176,15 @@ export default function ProfilePage() {
             </div>
           </motion.div>
 
-          {/* Main Content */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-3"
           >
             
-            {/* Overview Tab */}
             {activeTab === 'overview' && (
               <div className="space-y-6">
                 
-                {/* Stats Cards */}
                 <div className="grid md:grid-cols-3 gap-6">
                   {[
                     { icon: Package, label: 'Total Orders', value: userOrders.length, color: 'from-blue-500 to-cyan-500' },
@@ -219,7 +211,6 @@ export default function ProfilePage() {
                   })}
                 </div>
 
-                {/* Profile Info */}
                 <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-lg">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-black flex items-center gap-3">
@@ -326,7 +317,6 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* Orders Tab */}
             {activeTab === 'orders' && (
               <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-lg">
                 <h2 className="text-2xl font-black mb-6 flex items-center gap-3">
@@ -429,7 +419,6 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* Wishlist Tab */}
             {activeTab === 'wishlist' && (
               <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-lg text-center py-12">
                 <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-pink-100 flex items-center justify-center">
@@ -440,7 +429,6 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* Settings Tab */}
             {activeTab === 'settings' && (
               <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-lg">
                 <h2 className="text-2xl font-black mb-6 flex items-center gap-3">

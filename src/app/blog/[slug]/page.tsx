@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import blogs from '@/data/blogs.json'
 import BlogCard from '@/components/BlogCard'
 import { 
-  ArrowLeft, Clock, User, Calendar, Share2, Facebook, 
+  ArrowLeft, Clock, Calendar, Share2, Facebook, 
   Twitter, Linkedin, Link as LinkIcon, Bookmark, Hash, 
   CheckCircle2, Sparkles, Eye
 } from 'lucide-react'
@@ -54,8 +54,6 @@ export default function BlogDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
-      
-      {/* Header */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
         <motion.button
           initial={{ opacity: 0, x: -20 }}
@@ -144,8 +142,6 @@ export default function BlogDetailPage() {
           </motion.div>
         </motion.div>
       </section>
-
-      {/* Featured Image */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl mb-12">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -162,8 +158,6 @@ export default function BlogDetailPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </motion.div>
       </section>
-
-      {/* Content */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl mb-16">
         <motion.article
           initial={{ opacity: 0, y: 20 }}
@@ -183,8 +177,6 @@ export default function BlogDetailPage() {
             </motion.p>
           ))}
         </motion.article>
-
-        {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -213,8 +205,6 @@ export default function BlogDetailPage() {
             </div>
           </motion.div>
         )}
-
-        {/* Share Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -261,8 +251,6 @@ export default function BlogDetailPage() {
             })}
           </div>
         </motion.div>
-
-        {/* Author Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -294,7 +282,6 @@ export default function BlogDetailPage() {
         </motion.div>
       </section>
 
-      {/* Related Articles */}
       {relatedBlogs.length > 0 && (
         <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pb-20">
           <motion.h2 

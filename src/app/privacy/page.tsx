@@ -68,7 +68,6 @@ export default function PrivacyPage() {
     ],
   }
 
-  // Track active section
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
   const [active, setActive] = useState<string>('intro')
 
@@ -87,14 +86,12 @@ export default function PrivacyPage() {
     return () => observer.disconnect()
   }, [])
 
-  // Smooth scroll to section
   const handleScrollTo = (id: string) => {
     const el = sectionRefs.current[id]
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setActive(id)
   }
 
-  // Horizontal chips scroller
   const chipsWrapperRef = useRef<HTMLDivElement | null>(null)
   const scrollChips = (dir: 'left' | 'right') => {
     const el = chipsWrapperRef.current
@@ -110,7 +107,6 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-16">
 
-        {/* Header */}
         <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
           <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 font-semibold">
             <ArrowLeft className="w-5 h-5" />
@@ -148,7 +144,6 @@ export default function PrivacyPage() {
           </div>
         </motion.div>
 
-        {/* Sticky Topics Bar */}
         <div className="sticky top-20 z-30 mb-6">
           <div className="rounded-2xl ">
             <div className="relative">
@@ -196,7 +191,6 @@ export default function PrivacyPage() {
           </div>
         </div>
 
-        {/* Status note */}
         <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-start gap-3">
           <Info className="w-5 h-5 text-blue-600 mt-0.5" />
           <p className="text-sm text-blue-900">
@@ -204,7 +198,6 @@ export default function PrivacyPage() {
           </p>
         </motion.div>
 
-        {/* Sections */}
         <motion.div variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }} initial="hidden" animate="show" className="space-y-8">
           {sections.map((s) => {
             const Icon = s.icon
@@ -239,7 +232,6 @@ export default function PrivacyPage() {
           })}
         </motion.div>
 
-        {/* Download */}
         <motion.div id="download" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-10 p-5 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
             <Globe className="w-5 h-5 text-gray-600 mt-0.5" />

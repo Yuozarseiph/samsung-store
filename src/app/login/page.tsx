@@ -21,7 +21,6 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
 
-    // Simulate API call
     setTimeout(() => {
       if (formData.email && formData.password) {
         const user = AuthService.login(formData.email, formData.password)
@@ -45,7 +44,6 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        {/* Logo & Title */}
         <div className="text-center mb-8">
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -77,7 +75,6 @@ export default function LoginPage() {
           </motion.p>
         </div>
 
-        {/* Login Form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,7 +82,6 @@ export default function LoginPage() {
           className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-2xl"
         >
           <form onSubmit={handleLogin} className="space-y-6">
-            {/* Email */}
             <div>
               <label className="block text-sm font-semibold mb-2">Email Address</label>
               <div className="relative">
@@ -101,7 +97,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-semibold mb-2">Password</label>
               <div className="relative">
@@ -126,7 +121,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Error Message */}
             {error && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -137,7 +131,6 @@ export default function LoginPage() {
               </motion.div>
             )}
 
-            {/* Remember & Forgot */}
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="w-4 h-4 rounded" />
@@ -148,7 +141,6 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            {/* Submit Button */}
             <motion.button
               type="submit"
               disabled={loading}
@@ -175,7 +167,6 @@ export default function LoginPage() {
             </motion.button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-200"></div>
@@ -185,7 +176,6 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Social Login */}
           <div className="grid grid-cols-2 gap-3">
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -212,7 +202,6 @@ export default function LoginPage() {
             </motion.button>
           </div>
 
-          {/* Sign Up Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
             Don't have an account?{' '}
             <Link href="/register" className="text-blue-600 hover:text-purple-600 font-bold">
@@ -221,7 +210,6 @@ export default function LoginPage() {
           </p>
         </motion.div>
 
-        {/* Demo Credentials */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

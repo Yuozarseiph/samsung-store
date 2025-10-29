@@ -98,7 +98,6 @@ export default function TermsPage() {
         </div>
 
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* TOC */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 shadow p-4">
               <nav className="space-y-1">
@@ -117,7 +116,6 @@ export default function TermsPage() {
             </div>
           </div>
 
-          {/* Content */}
           <div className="lg:col-span-3 space-y-6">
             {toc.map((t, i) => {
               const Icon = content[t.id].icon

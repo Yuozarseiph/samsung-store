@@ -8,14 +8,9 @@ import { Search, Filter, X, Mail, Send, Sparkles, BookOpen } from 'lucide-react'
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
-
-  // Helper normalize
   const normalized = (s?: string) => (s || '').toLowerCase().trim()
-
-  // Categories list with trim to avoid hidden spaces
   const categories = ['All', ...Array.from(new Set(blogs.map(b => (b.category || '').trim())))]
 
-  // Filtered blogs with normalized comparisons
   const filteredBlogs = useMemo(() => {
     let result = blogs
 
@@ -36,7 +31,6 @@ export default function BlogPage() {
     return result
   }, [selectedCategory, searchQuery])
 
-  // Featured: ثابت بماند و با فیلتر تغییر نکند (طبق خواسته که فقط گرید رفرش شود)
   const featuredBlog = blogs[0]
 
   const containerVariants = {
@@ -98,8 +92,6 @@ export default function BlogPage() {
             Stay updated with the latest news, reviews, and tips from the Samsung Galaxy universe.
           </motion.p>
         </motion.div>
-
-        {/* Featured Blog (fixed, does not change on filter) */}
         {featuredBlog && (
           <motion.div
             key={featuredBlog.slug}
@@ -184,8 +176,6 @@ export default function BlogPage() {
           </motion.div>
         )}
       </section>
-
-      {/* Search & Filter */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mb-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -226,8 +216,6 @@ export default function BlogPage() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   setSelectedCategory(cat)
-                  // اختیاری: پاک‌کردن جستجو هنگام تغییر دسته
-                  // setSearchQuery('')
                 }}
                 className={`px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all shadow-lg ${
                   selectedCategory === cat
@@ -242,7 +230,6 @@ export default function BlogPage() {
         </motion.div>
       </section>
 
-      {/* Blog Grid (only this part re-renders via key) */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pb-16">
         {filteredBlogs.length > 0 ? (
           <>
@@ -256,7 +243,7 @@ export default function BlogPage() {
             </motion.div>
 
             <motion.div 
-              key={`grid-${selectedCategory}-${searchQuery}`} // force re-render of grid per filter
+              key={`grid-${selectedCategory}-${searchQuery}`}
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -298,8 +285,6 @@ export default function BlogPage() {
           </motion.div>
         )}
       </section>
-
-      {/* Newsletter Section */}
       <section className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pb-20">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -307,7 +292,6 @@ export default function BlogPage() {
           viewport={{ once: true }}
           className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-[3rem] p-12 text-center text-white shadow-2xl overflow-hidden"
         >
-          {/* Animated Background Pattern */}
           <motion.div
             animate={{ backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'] }}
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
