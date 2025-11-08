@@ -1,251 +1,249 @@
 'use client'
-import { useRef, useState } from 'react'
+
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import {
-  Shield, Lock, UserCheck, Cookie, Database, Mail, Globe,
-  Calendar, Download, ArrowLeft, CheckCircle2, Info, FileText, ChevronLeft, ChevronRight
+  Shield, Eye, Lock, Database, Users, Globe,
+  Mail, Cookie, ArrowRight
 } from 'lucide-react'
 
 type SectionId =
-  | 'intro'
-  | 'data-we-collect'
-  | 'how-we-use'
-  | 'cookies'
+  | 'collection'
+  | 'usage'
   | 'sharing'
-  | 'your-rights'
   | 'security'
+  | 'cookies'
+  | 'rights'
   | 'contact'
-  | 'last-updated'
+  | 'updates'
+
+const sections: { id: SectionId; title: string }[] = [
+  { id: 'collection', title: 'Information We Collect' },
+  { id: 'usage', title: 'How We Use Your Data' },
+  { id: 'sharing', title: 'Data Sharing' },
+  { id: 'security', title: 'Security Measures' },
+  { id: 'cookies', title: 'Cookies & Tracking' },
+  { id: 'rights', title: 'Your Rights' },
+  { id: 'contact', title: 'Contact Us' },
+  { id: 'updates', title: 'Policy Updates' },
+]
+
+const content: Record<SectionId, { icon: any; bullets: string[] }> = {
+  collection: {
+    icon: Database,
+    bullets: [
+      'Personal information (name, email, phone) provided during registration',
+      'Payment information processed securely through encrypted channels',
+      'Device and browsing data for analytics and improvement',
+      'Location data if you enable location services',
+    ],
+  },
+  usage: {
+    icon: Eye,
+    bullets: [
+      'Process and fulfill your orders efficiently',
+      'Send order confirmations and shipping updates',
+      'Improve our products and services based on usage patterns',
+      'Personalize your shopping experience',
+      'Send promotional emails (you can opt-out anytime)',
+    ],
+  },
+  sharing: {
+    icon: Users,
+    bullets: [
+      'We never sell your personal information to third parties',
+      'Shipping partners receive necessary delivery information only',
+      'Payment processors handle transactions securely',
+      'Legal compliance when required by law',
+    ],
+  },
+  security: {
+    icon: Lock,
+    bullets: [
+      'Industry-standard SSL/TLS encryption for all data transmission',
+      'Regular security audits and penetration testing',
+      'Access controls and authentication measures',
+      'Secure data storage with backup systems',
+    ],
+  },
+  cookies: {
+    icon: Cookie,
+    bullets: [
+      'Essential cookies for website functionality',
+      'Analytics cookies to understand user behavior (Google Analytics)',
+      'Marketing cookies for personalized ads (can be disabled)',
+      'You can manage cookie preferences in your browser settings',
+    ],
+  },
+  rights: {
+    icon: Shield,
+    bullets: [
+      'Access your personal data anytime through your account',
+      'Request data correction or deletion',
+      'Opt-out of marketing communications',
+      'Export your data in a portable format',
+      'Lodge a complaint with data protection authorities',
+    ],
+  },
+  contact: {
+    icon: Mail,
+    bullets: [
+      'Email us at privacy@samsungstore.com for privacy concerns',
+      'Data Protection Officer: dpo@samsungstore.com',
+      'Response time: Within 48 hours for urgent matters',
+      'Mailing address: 123 Privacy Street, Tech City, TC 12345',
+    ],
+  },
+  updates: {
+    icon: Globe,
+    bullets: [
+      'We may update this policy to reflect changes in our practices',
+      'Major changes will be notified via email',
+      'Last updated date is always displayed at the top',
+      'Continued use after updates means acceptance',
+    ],
+  },
+}
 
 export default function PrivacyPage() {
-  const sections: { id: SectionId; icon: any; title: string }[] = [
-    { id: 'intro', icon: Shield, title: 'Introduction' },
-    { id: 'data-we-collect', icon: Database, title: 'Data We Collect' },
-    { id: 'how-we-use', icon: FileText, title: 'How We Use Data' },
-    { id: 'cookies', icon: Cookie, title: 'Cookies & Tracking' },
-    { id: 'sharing', icon: UserCheck, title: 'Sharing & Transfers' },
-    { id: 'your-rights', icon: CheckCircle2, title: 'Your Rights' },
-    { id: 'security', icon: Lock, title: 'Security' },
-    { id: 'contact', icon: Mail, title: 'Contact Us' },
-    { id: 'last-updated', icon: Calendar, title: 'Last Updated' },
-  ]
-
-  const content: Record<SectionId, string[]> = {
-    intro: [
-      'We value your privacy and are committed to protecting your personal data.',
-      'This policy explains what data we collect, how we use it, and your rights.',
-    ],
-    'data-we-collect': [
-      'Account data: name, email, phone, shipping address.',
-      'Order data: products purchased, payment method (tokenized), invoices.',
-      'Device and usage data: IP address, browser, pages visited, session duration.',
-      'Support interactions: messages, emails, call notes.',
-    ],
-    'how-we-use': [
-      'Provide and improve our services and fulfill orders.',
-      'Personalize content and recommendations.',
-      'Fraud prevention, security monitoring, and diagnostics.',
-      'Legal compliance, accounting, and tax obligations.',
-    ],
-    cookies: [
-      'Essential cookies for authentication and cart functionality.',
-      'Analytics cookies to improve performance and UX.',
-      'Advertising cookies for relevant offers (optional, opt-out available).',
-    ],
-    sharing: [
-      'Payment processors for secure checkout.',
-      'Logistics partners for shipping and returns.',
-      'Analytics and security vendors under strict agreements.',
-      'We do not sell your personal data.',
-    ],
-    'your-rights': [
-      'Access, correction, deletion, and portability of your data.',
-      'Withdraw consent and object to certain processing.',
-      'Manage email preferences and cookies at any time.',
-    ],
-    security: [
-      'Encryption in transit (HTTPS) and at rest where applicable.',
-      'Access controls, monitoring, and routine audits.',
-      'Vendor due diligence and data minimization principles.',
-    ],
-    contact: [
-      'Email: privacy@samsungstore.com',
-      'Address: 123 Galaxy Street, Tech City, TC 12345',
-      'Phone: +1 (555) 123-4567',
-    ],
-    'last-updated': [
-      'This policy was last updated on Oct 25, 2025.',
-    ],
-  }
-
-  const [active, setActive] = useState<SectionId>('intro')
+  const [active, setActive] = useState<SectionId>('collection')
 
   const handleScrollTo = (id: SectionId) => {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setActive(id)
+    const el = document.getElementById(id)
+    if (el) {
+      const headerOffset = 120
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
   }
 
-  const chipsWrapperRef = useRef<HTMLDivElement | null>(null)
-  const scrollChips = (dir: 'left' | 'right') => {
-    const el = chipsWrapperRef.current
-    if (!el) return
-    const amount = Math.min(360, el.clientWidth * 0.8)
-    el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
-  }
+  // Track scroll position to update active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionIds = sections.map(s => s.id)
+      const scrollPosition = window.pageYOffset + 200
 
-  const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.06 } } }
+      for (const sectionId of sectionIds) {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const offsetTop = element.offsetTop
+          const offsetBottom = offsetTop + element.offsetHeight
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActive(sectionId)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-16">
-        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 font-semibold">
-            <ArrowLeft className="w-5 h-5" />
-            Back to Home
-          </Link>
-          <div className="mt-6 flex items-start justify-between gap-6">
-            <div>
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 240 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold shadow-lg"
-              >
-                <Shield className="w-4 h-4" />
-                Privacy Policy
-              </motion.div>
-              <h1 className="mt-3 text-4xl md:text-5xl font-black">
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Your Privacy Matters
-                </span>
-              </h1>
-              <p className="mt-2 text-gray-600">
-                Clear information about how we collect, use, and protect your data.
-              </p>
-            </div>
-            <motion.a
-              href="#download"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              className="hidden sm:flex items-center gap-2 px-4 py-3 rounded-xl bg-white border-2 border-gray-200 hover:border-blue-500 transition-colors font-semibold"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </motion.a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
+        >
+          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-xl">
+            <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
           </div>
-        </motion.div>
-
-        <div className="sticky top-20 z-30 mb-6">
-          <div className="rounded-2xl">
-            <div className="relative">
-              <button
-                aria-label="Scroll topics left"
-                onClick={() => scrollChips('left')}
-                className="hidden md:flex absolute -left-10 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white border border-gray-200 shadow hover:shadow-md"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <div
-                ref={chipsWrapperRef}
-                className="flex gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory px-12 py-3 rounded-full"
-                style={{ scrollbarWidth: 'none' }}
-              >
-                {sections.map((s) => {
-                  const Icon = s.icon
-                  const isActive = active === s.id
-                  return (
-                    <motion.button
-                      key={s.id}
-                      onClick={() => handleScrollTo(s.id)}
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`snap-start flex items-center gap-2 px-4 py-2 rounded-2xl border transition-all whitespace-nowrap ${
-                        isActive
-                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent shadow-lg'
-                          : 'bg-white/80 backdrop-blur-xl text-gray-700 border-gray-200 hover:border-blue-500'
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-blue-600'}`} />
-                      <span className="text-sm font-semibold">{s.title}</span>
-                    </motion.button>
-                  )
-                })}
-              </div>
-              <button
-                aria-label="Scroll topics right"
-                onClick={() => scrollChips('right')}
-                className="hidden md:flex absolute -right-10 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white border border-gray-200 shadow hover:shadow-md"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-start gap-3">
-          <Info className="w-5 h-5 text-blue-600 mt-0.5" />
-          <p className="text-sm text-blue-900">
-            The topics bar stays visible as you scroll. Click any chip to jump smoothly to its section.
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3 sm:mb-4">
+            Privacy Policy
+          </h1>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+            Clear information about how we collect, use, and protect your data.
+          </p>
+          <p className="text-xs sm:text-sm text-gray-500 mt-3">
+            Last updated: January 1, 2025
           </p>
         </motion.div>
 
-        <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
-          {sections.map((s) => {
-            const Icon = s.icon
-            return (
-              <motion.section
-                id={s.id}
-                key={s.id}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
-                transition={{ duration: 0.4 }}
-                className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white/40 shadow-lg scroll-mt-28"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center shadow-lg">
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900">{s.title}</h2>
-                </div>
-
-                <ul className="space-y-2">
-                  {content[s.id].map((text, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-gray-700">
-                      <span className="mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600" />
-                      <span>{text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.section>
-            )
-          })}
-        </motion.div>
-
-        <motion.div
-          id="download"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-10 p-5 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-        >
-          <div className="flex items-start gap-3">
-            <Globe className="w-5 h-5 text-gray-600 mt-0.5" />
-            <p className="text-sm text-gray-700">
-              This policy applies to our website and related services worldwide. Region-specific notices may apply.
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
+          {/* TOC Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="lg:sticky lg:top-24 space-y-2">
+              <h3 className="text-sm font-semibold text-gray-500 mb-4 px-3">QUICK NAVIGATION</h3>
+              {sections.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => handleScrollTo(s.id)}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-sm sm:text-base font-semibold transition-all flex items-center justify-between group ${
+                    active === s.id
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'hover:bg-blue-50 text-gray-700'
+                  }`}
+                >
+                  <span className="truncate pr-2">{s.title}</span>
+                  <ArrowRight className={`w-4 h-4 flex-shrink-0 transition-transform ${
+                    active === s.id ? 'translate-x-1' : 'group-hover:translate-x-1'
+                  }`} />
+                </button>
+              ))}
+            </div>
           </div>
-          <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            href="#"
-            className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white border-2 border-gray-200 hover:border-blue-500 transition-colors font-semibold"
-          >
-            <Download className="w-5 h-5" />
-            Download PDF
-          </motion.a>
+
+          {/* Content */}
+          <div className="lg:col-span-3 space-y-8 sm:space-y-12">
+            {sections.map((s, i) => {
+              const Icon = content[s.id].icon
+              return (
+                <motion.section
+                  key={s.id}
+                  id={s.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-gray-100 scroll-mt-32"
+                >
+                  <div className="flex items-center gap-4 mb-6 sm:mb-8">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                    </div>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                      {s.title}
+                    </h2>
+                  </div>
+                  <ul className="space-y-4">
+                    {content[s.id].bullets.map((b, idx) => (
+                      <li key={idx} className="flex gap-3 sm:gap-4">
+                        <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <span className="text-xs sm:text-sm font-bold text-blue-600">{idx + 1}</span>
+                        </div>
+                        <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed flex-1">
+                          {b}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.section>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Footer Note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 sm:mt-16 p-6 sm:p-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl text-center"
+        >
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-3xl mx-auto">
+            This policy applies to our website and related services worldwide. Region-specific privacy notices may apply.
+            We are committed to protecting your privacy and complying with GDPR, CCPA, and other data protection regulations.
+          </p>
         </motion.div>
       </div>
     </div>

@@ -1,7 +1,11 @@
 'use client'
-import { useState, useRef } from 'react'
+
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Scale, FileText, ShieldCheck, CreditCard, Truck, HelpCircle } from 'lucide-react'
+import {
+  Scale, FileText, ShieldCheck, CreditCard,
+  Truck, HelpCircle, ArrowRight
+} from 'lucide-react'
 
 type TocId =
   | 'agreement'
@@ -28,6 +32,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       'Using our services constitutes acceptance of these terms.',
       'We may update the terms; continued use means acceptance.',
+      'You must be at least 18 years old to make purchases.',
     ],
   },
   accounts: {
@@ -35,6 +40,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       'Keep your account credentials secure and up to date.',
       'You are responsible for activities under your account.',
+      'Notify us immediately of any unauthorized access.',
     ],
   },
   orders: {
@@ -42,6 +48,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       'Prices and availability are subject to change.',
       'Payment methods include cards and PayPal; all transactions are secure.',
+      'Order confirmation will be sent via email.',
     ],
   },
   shipping: {
@@ -49,6 +56,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       'We ship worldwide with tracking for all orders.',
       'Delivery estimates are not guaranteed due to carrier conditions.',
+      'You will receive tracking information once shipped.',
     ],
   },
   returns: {
@@ -56,6 +64,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       '30-day return window; items must be in original condition.',
       'Warranty claims handled via authorized service centers.',
+      'Return shipping costs may apply based on the reason.',
     ],
   },
   liability: {
@@ -63,6 +72,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       'We are not liable for indirect or consequential damages.',
       'Our total liability shall not exceed the amount paid for the order.',
+      'Force majeure events are excluded from liability.',
     ],
   },
   support: {
@@ -70,6 +80,7 @@ const content: Record<TocId, { icon: any; bullets: string[] }> = {
     bullets: [
       'For assistance, contact support@samsungstore.com.',
       'We aim to respond within 1-2 business days.',
+      'Live chat support available during business hours.',
     ],
   },
 }
@@ -78,66 +89,118 @@ export default function TermsPage() {
   const [active, setActive] = useState<TocId>('agreement')
 
   const handleScrollTo = (id: TocId) => {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     setActive(id)
+    const el = document.getElementById(id)
+    if (el) {
+      const headerOffset = 120
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-black">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Terms of Service</span>
-          </h1>
-          <p className="text-gray-600 mt-2">Please read these terms carefully before using our services.</p>
-        </div>
+  // Track scroll position to update active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = toc.map(t => t.id)
+      const scrollPosition = window.pageYOffset + 200
 
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* TOC */}
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const offsetTop = element.offsetTop
+          const offsetBottom = offsetTop + element.offsetHeight
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActive(sectionId)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
+        >
+          <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-xl">
+            <Scale className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3 sm:mb-4">
+            Terms of Service
+          </h1>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+            Please read these terms carefully before using our services.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
+          {/* TOC Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 shadow p-4">
-              <nav className="space-y-1">
-                {toc.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => handleScrollTo(t.id)}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${
-                      active === t.id ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' : 'hover:bg-blue-50 text-gray-700'
-                    }`}
-                  >
-                    {t.title}
-                  </button>
-                ))}
-              </nav>
+            <div className="lg:sticky lg:top-24 space-y-2">
+              <h3 className="text-sm font-semibold text-gray-500 mb-4 px-3">TABLE OF CONTENTS</h3>
+              {toc.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => handleScrollTo(t.id)}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-sm sm:text-base font-semibold transition-all flex items-center justify-between group ${
+                    active === t.id
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'hover:bg-blue-50 text-gray-700'
+                  }`}
+                >
+                  <span>{t.title}</span>
+                  <ArrowRight className={`w-4 h-4 transition-transform ${
+                    active === t.id ? 'translate-x-1' : 'group-hover:translate-x-1'
+                  }`} />
+                </button>
+              ))}
             </div>
           </div>
 
           {/* Content */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 space-y-8 sm:space-y-12">
             {toc.map((t, i) => {
               const Icon = content[t.id].icon
               return (
                 <motion.section
-                  id={t.id}
                   key={t.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.03 }}
-                  className="bg-white/70 backdrop-blur-xl rounded-2xl p-6 border border-white/40 shadow"
+                  id={t.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-gray-100 scroll-mt-32"
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-white" />
+                  <div className="flex items-center gap-4 mb-6 sm:mb-8">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900">{t.title}</h2>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+                      {t.title}
+                    </h2>
                   </div>
-                  <ul className="space-y-2">
+                  <ul className="space-y-4">
                     {content[t.id].bullets.map((b, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-gray-700">
-                        <span className="mt-2 inline-block w-1 h-1 rounded-full bg-gray-300" />
-                        <span className="leading-relaxed">{b}</span>
+                      <li key={idx} className="flex gap-3 sm:gap-4">
+                        <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <span className="text-xs sm:text-sm font-bold text-blue-600">{idx + 1}</span>
+                        </div>
+                        <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed flex-1">
+                          {b}
+                        </p>
                       </li>
                     ))}
                   </ul>
@@ -146,6 +209,19 @@ export default function TermsPage() {
             })}
           </div>
         </div>
+
+        {/* Footer Note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 sm:mt-16 p-6 sm:p-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl text-center"
+        >
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-3xl mx-auto">
+            These terms apply to our website and related services worldwide. Region-specific notices may apply.
+            Last updated: January 2025.
+          </p>
+        </motion.div>
       </div>
     </div>
   )

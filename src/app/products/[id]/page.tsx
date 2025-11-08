@@ -1,22 +1,24 @@
 'use client'
+
 import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import products from '@/data/products.json'
 import { formatPrice } from '@/utils/formatPrice'
-import { 
-  ArrowLeft, ShoppingCart, Heart, Share2, Check, Truck, Shield, 
-  RotateCcw, ChevronRight, Star, Info, Sparkles, Zap
+import {
+  ArrowLeft, ShoppingCart, Heart, Share2, Check,
+  Truck, Shield, RotateCcw, ChevronRight, Star,
+  Info, Sparkles, Zap
 } from 'lucide-react'
 
 export default function ProductDetailPage() {
   const { id } = useParams()
   const router = useRouter()
   const product = products.find(p => p.id === id)
-
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedStorage, setSelectedStorage] = useState('')
   const [addedToCart, setAddedToCart] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     if (product?.colors?.[0]) setSelectedColor(product.colors[0])
@@ -25,352 +27,234 @@ export default function ProductDetailPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-            <Info className="w-16 h-16 text-gray-400" />
-          </div>
-          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 pt-20 px-4">
+        <div className="text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Product not found</h2>
+          <button
             onClick={() => router.push('/products')}
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 font-semibold"
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-xl transition-all"
           >
-            <ArrowLeft className="w-5 h-5" />
             Back to Products
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     )
   }
 
-  const addToCart = () => {
+  const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      color: selectedColor,
-      storage: selectedStorage,
+    const cartItem = {
+      ...product,
+      selectedColor,
+      selectedStorage,
       quantity: 1
-    })
+    }
+    cart.push(cartItem)
     localStorage.setItem('cart', JSON.stringify(cart))
     setAddedToCart(true)
-    setTimeout(() => setAddedToCart(false), 2000)
+    setTimeout(() => setAddedToCart(false), 3000)
   }
 
+  const features = [
+    { icon: Truck, text: 'Free shipping on orders over $50' },
+    { icon: Shield, text: '2-year warranty included' },
+    { icon: RotateCcw, text: '30-day return policy' },
+  ]
+
+  const specs = product.specs || []
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
-        
-        {/* Breadcrumb */}
-        <motion.div
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Back Button */}
+        <motion.button
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-2 text-sm text-gray-600 mb-6"
-        >
-          <motion.button whileHover={{ x: -3 }} onClick={() => router.push('/')} className="hover:text-blue-600">
-            Home
-          </motion.button>
-          <ChevronRight className="w-4 h-4" />
-          <motion.button whileHover={{ x: -3 }} onClick={() => router.push('/products')} className="hover:text-blue-600">
-            Products
-          </motion.button>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-semibold">{product.name}</span>
-        </motion.div>
-
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ x: -5 }}
-          whileTap={{ scale: 0.95 }}
           onClick={() => router.back()}
-          className="mb-8 inline-flex items-center gap-2 text-blue-600 hover:text-purple-600 font-semibold"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 sm:mb-8 group"
         >
-          <ArrowLeft className="w-5 h-5" />
-          Back
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-sm sm:text-base font-medium">Back</span>
         </motion.button>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
+          {/* Image Section */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="sticky top-24 h-fit"
+            className="relative"
           >
-            <div className="relative bg-white/60 backdrop-blur-xl rounded-[3rem] overflow-hidden border border-white/40 shadow-2xl p-8">
-              <motion.img
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.5 }}
-                src={product.image}
-                alt={product.name}
-                className="w-full h-auto object-cover rounded-3xl"
-              />
+            <div className="sticky top-24">
+              <div className="aspect-square bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden p-6 sm:p-8 lg:p-12">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
               
-              {/* Quick Actions */}
+              {/* Action Buttons */}
               <div className="flex gap-3 mt-6">
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgb(255, 245, 245)' }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 py-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200 font-semibold flex items-center justify-center gap-2 transition-colors"
+                <button
+                  onClick={() => setIsFavorite(!isFavorite)}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 transition-all ${
+                    isFavorite
+                      ? 'bg-red-50 border-red-500 text-red-600'
+                      : 'border-gray-300 hover:border-red-500 text-gray-700'
+                  }`}
                 >
-                  <Heart className="w-5 h-5 text-pink-500" />
-                  Save
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgb(239, 246, 255)' }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-1 py-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200 font-semibold flex items-center justify-center gap-2 transition-colors"
-                >
-                  <Share2 className="w-5 h-5 text-blue-500" />
-                  Share
-                </motion.button>
+                  <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+                  <span className="hidden sm:inline text-sm sm:text-base font-medium">
+                    {isFavorite ? 'Favorited' : 'Favorite'}
+                  </span>
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-gray-300 hover:border-blue-500 text-gray-700 transition-all">
+                  <Share2 className="w-5 h-5" />
+                  <span className="hidden sm:inline text-sm sm:text-base font-medium">Share</span>
+                </button>
               </div>
             </div>
           </motion.div>
 
+          {/* Details Section */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-6 sm:space-y-8"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 200 }}
-                className="px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold"
-              >
-                {product.category}
-              </motion.div>
-              {product.tag && (
-                <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-                  className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold shadow-lg"
-                >
-                  <Star className="w-3 h-3 fill-white" />
-                  {product.tag}
-                </motion.div>
-              )}
-            </div>
-            
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-5xl font-black mb-6 leading-tight"
-            >
-              {product.name}
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-xl text-gray-600 mb-8 leading-relaxed"
-            >
-              {product.description}
-            </motion.p>
-            
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex items-baseline gap-4 mb-10"
-            >
-              <span className="text-5xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {/* Title & Price */}
+            <div>
+              <div className="flex items-start justify-between gap-4 mb-3 sm:mb-4">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
+                  {product.name}
+                </h1>
+                {product.rating && (
+                  <div className="flex items-center gap-1 bg-yellow-50 px-3 py-1.5 rounded-full flex-shrink-0">
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm sm:text-base font-bold text-gray-900">{product.rating}</span>
+                  </div>
+                )}
+              </div>
+              <p className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 sm:mb-6">
                 {formatPrice(product.price)}
-              </span>
-              <span className="text-xl text-gray-400 line-through">
-                {formatPrice(product.price * 1.2)}
-              </span>
-              <motion.span
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="px-3 py-1 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-bold rounded-xl shadow-lg"
-              >
-                Save 20%
-              </motion.span>
-            </motion.div>
+              </p>
+              <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
+                {product.description}
+              </p>
+            </div>
 
+            {/* Color Selection */}
             {product.colors && product.colors.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mb-8"
-              >
-                <label className="block text-sm font-bold mb-4 flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-red-500 via-blue-500 to-green-500" />
+              <div>
+                <label className="block text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                   Color: <span className="text-blue-600">{selectedColor}</span>
                 </label>
                 <div className="flex flex-wrap gap-3">
-                  {product.colors.map((color, i) => (
-                    <motion.button
+                  {product.colors.map((color) => (
+                    <button
                       key={color}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.6 + i * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -3 }}
-                      whileTap={{ scale: 0.95 }}
                       onClick={() => setSelectedColor(color)}
-                      className={`px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${
+                      className={`px-4 sm:px-6 py-2 sm:py-3 rounded-xl text-sm sm:text-base font-medium transition-all ${
                         selectedColor === color
-                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-blue-500/30'
-                          : 'bg-white/80 backdrop-blur-sm text-gray-700 border border-gray-200'
+                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                          : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-blue-500'
                       }`}
                     >
-                      {selectedColor === color && <Check className="w-4 h-4 inline mr-2" />}
                       {color}
-                    </motion.button>
+                    </button>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             )}
 
+            {/* Storage Selection */}
             {product.storage && product.storage.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="mb-10"
-              >
-                <label className="block text-sm font-bold mb-4">
-                  Storage: <span className="text-blue-600">{selectedStorage}</span>
+              <div>
+                <label className="block text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
+                  Storage: <span className="text-purple-600">{selectedStorage}</span>
                 </label>
                 <div className="flex flex-wrap gap-3">
-                  {product.storage.map((storage, i) => (
-                    <motion.button
+                  {product.storage.map((storage) => (
+                    <button
                       key={storage}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.8 + i * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -3 }}
-                      whileTap={{ scale: 0.95 }}
                       onClick={() => setSelectedStorage(storage)}
-                      className={`px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${
+                      className={`px-4 sm:px-6 py-2 sm:py-3 rounded-xl text-sm sm:text-base font-medium transition-all ${
                         selectedStorage === storage
-                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-blue-500/30'
-                          : 'bg-white/80 backdrop-blur-sm text-gray-700 border border-gray-200'
+                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                          : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-purple-500'
                       }`}
                     >
-                      {selectedStorage === storage && <Check className="w-4 h-4 inline mr-2" />}
                       {storage}
-                    </motion.button>
+                    </button>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             )}
 
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-              className="flex gap-4 mb-10"
+            {/* Add to Cart Button */}
+            <button
+              onClick={handleAddToCart}
+              disabled={addedToCart}
+              className={`w-full flex items-center justify-center gap-3 px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold transition-all shadow-lg ${
+                addedToCart
+                  ? 'bg-green-500 text-white'
+                  : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-2xl hover:scale-[1.02]'
+              }`}
             >
-              <motion.button
-                whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)' }}
-                whileTap={{ scale: 0.98 }}
-                onClick={addToCart}
-                className={`flex-1 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all shadow-xl ${
-                  addedToCart
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-green-500/30'
-                    : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-blue-500/30'
-                }`}
-              >
-                {addedToCart ? (
-                  <>
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1, rotate: 360 }}
-                      transition={{ type: 'spring', stiffness: 200 }}
-                    >
-                      <Check className="w-6 h-6" />
-                    </motion.div>
-                    Added to Cart!
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCart className="w-6 h-6" />
-                    Add to Cart
-                  </>
-                )}
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-5 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-gray-200 hover:border-pink-500 transition-colors shadow-lg"
-              >
-                <Heart className="w-6 h-6 text-pink-500" />
-              </motion.button>
-            </motion.div>
+              {addedToCart ? (
+                <>
+                  <Check className="w-6 h-6" />
+                  Added to Cart
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-6 h-6" />
+                  Add to Cart
+                </>
+              )}
+            </button>
 
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="grid grid-cols-3 gap-4 mb-10"
-            >
-              {[
-                { icon: Truck, text: 'Free Shipping', color: 'from-blue-500 to-cyan-500' },
-                { icon: Shield, text: '2 Year Warranty', color: 'from-green-500 to-emerald-500' },
-                { icon: RotateCcw, text: '30 Day Returns', color: 'from-pink-500 to-rose-500' },
-              ].map((feature, i) => {
+            {/* Features */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-6 sm:pt-8 border-t border-gray-200">
+              {features.map((feature, idx) => {
                 const Icon = feature.icon
                 return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.1 + i * 0.1, type: 'spring', stiffness: 200 }}
-                    whileHover={{ scale: 1.05, y: -3 }}
-                    className="text-center p-4 bg-white/60 backdrop-blur-xl rounded-2xl border border-white/40 shadow-lg"
+                  <div
+                    key={idx}
+                    className="flex items-center gap-3 p-3 sm:p-4 bg-blue-50 rounded-xl"
                   >
-                    <div className={`w-12 h-12 mx-auto mb-2 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <p className="text-xs font-semibold text-gray-700">{feature.text}</p>
-                  </motion.div>
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
+                      {feature.text}
+                    </span>
+                  </div>
                 )
               })}
-            </motion.div>
+            </div>
 
-            {product.specs && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 }}
-                className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/40 shadow-lg"
-              >
-                <h3 className="font-bold text-2xl mb-6 flex items-center gap-2">
-                  <Zap className="w-6 h-6 text-blue-600" />
+            {/* Specifications */}
+            {specs.length > 0 && (
+              <div className="pt-6 sm:pt-8 border-t border-gray-200">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
+                  <Sparkles className="w-6 h-6 text-purple-600" />
                   Specifications
                 </h3>
-                <div className="space-y-4">
-                  {Object.entries(product.specs).map(([key, value], i) => (
-                    <motion.div
-                      key={key}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 1.3 + i * 0.1 }}
-                      className="flex justify-between items-start pb-4 border-b border-gray-200 last:border-0"
+                <div className="space-y-3 sm:space-y-4">
+                  {specs.map((spec: any, idx: number) => (
+                    <div
+                      key={idx}
+                      className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 bg-white rounded-xl border border-gray-200 hover:border-blue-500 transition-all gap-2 sm:gap-4"
                     >
-                      <span className="font-semibold text-gray-600">{key}</span>
-                      <span className="text-right text-gray-900 font-semibold max-w-xs">{value}</span>
-                    </motion.div>
+                      <span className="text-sm sm:text-base font-semibold text-gray-900">
+                        {spec.label}
+                      </span>
+                      <span className="text-sm sm:text-base text-gray-600 sm:text-right">
+                        {spec.value}
+                      </span>
+                    </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             )}
           </motion.div>
         </div>
