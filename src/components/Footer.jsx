@@ -187,7 +187,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="py-8"
         >
-          <div className="max-w-xl mx-auto text-center">
+          <div className="max-w-full mx-auto text-center">
             <h3 className="text-2xl font-black mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Stay Updated
             </h3>

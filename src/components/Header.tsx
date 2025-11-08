@@ -90,7 +90,7 @@ export default function Header() {
         boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.08)' : 'none',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">

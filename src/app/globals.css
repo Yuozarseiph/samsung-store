@@ -1,4 +1,79 @@
 @import "tailwindcss";
-body{
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Prevent horizontal scroll from children */
+#__next {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Fix for container breakouts */
+.container {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Prevent grid/flex overflow */
+.grid {
+  width: 100%;
+}
+
+/* Fix for images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Fix for motion divs */
+[class*="motion"] {
+  max-width: 100%;
   overflow-x: hidden;
 }

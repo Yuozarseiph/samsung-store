@@ -6,8 +6,8 @@ import type { Metadata } from 'next'
 
 const inter = Inter({ 
   subsets: ['latin'], 
-  display: 'swap',
-  variable: '--font-inter'
+  display: 'swap', 
+  variable: '--font-inter' 
 })
 
 export const metadata: Metadata = {
@@ -21,15 +21,28 @@ export const metadata: Metadata = {
     type: 'website',
   },
   themeColor: '#FDFCFB',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen antialiased bg-[#FDFCFB] overflow-x-hidden">
-        <Header />
-        <main className="pt-20 pb-12 overflow-x-hidden">{children}</main>
-        <Footer />
+    <html lang="en" className={`${inter.variable} scroll-smooth overflow-x-hidden max-w-full`}>
+      <body className={`${inter.className} antialiased overflow-x-hidden`}>
+        <div className="min-h-screen w-full overflow-x-hidden flex flex-col">
+          <Header />
+          <main className="flex-1 w-full overflow-x-hidden">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   )
