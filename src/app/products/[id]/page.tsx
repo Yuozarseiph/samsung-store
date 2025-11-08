@@ -7,8 +7,8 @@ import products from '@/data/products.json'
 import { formatPrice } from '@/utils/formatPrice'
 import {
   ArrowLeft, ShoppingCart, Heart, Share2, Check,
-  Truck, Shield, RotateCcw, ChevronRight, Star,
-  Info, Sparkles, Zap
+  Truck, Shield, RotateCcw, Star,
+  Sparkles
 } from 'lucide-react'
 
 export default function ProductDetailPage() {
@@ -61,7 +61,7 @@ export default function ProductDetailPage() {
     { icon: RotateCcw, text: '30-day return policy' },
   ]
 
-  const specs = product.specs || []
+  const specs = product.specs || {}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
@@ -124,17 +124,9 @@ export default function ProductDetailPage() {
           >
             {/* Title & Price */}
             <div>
-              <div className="flex items-start justify-between gap-4 mb-3 sm:mb-4">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
-                  {product.name}
-                </h1>
-                {product.rating && (
-                  <div className="flex items-center gap-1 bg-yellow-50 px-3 py-1.5 rounded-full flex-shrink-0">
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm sm:text-base font-bold text-gray-900">{product.rating}</span>
-                  </div>
-                )}
-              </div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight mb-4">
+                {product.name}
+              </h1>
               <p className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 sm:mb-6">
                 {formatPrice(product.price)}
               </p>
@@ -233,23 +225,23 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Specifications */}
-            {specs.length > 0 && (
+            {Object.keys(specs).length > 0 && (
               <div className="pt-6 sm:pt-8 border-t border-gray-200">
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
                   <Sparkles className="w-6 h-6 text-purple-600" />
                   Specifications
                 </h3>
                 <div className="space-y-3 sm:space-y-4">
-                  {specs.map((spec: any, idx: number) => (
+                  {Object.entries(specs).map(([key, value], idx) => (
                     <div
                       key={idx}
                       className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 bg-white rounded-xl border border-gray-200 hover:border-blue-500 transition-all gap-2 sm:gap-4"
                     >
                       <span className="text-sm sm:text-base font-semibold text-gray-900">
-                        {spec.label}
+                        {key}
                       </span>
                       <span className="text-sm sm:text-base text-gray-600 sm:text-right">
-                        {spec.value}
+                        {value}
                       </span>
                     </div>
                   ))}

@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   Home, Package, BookOpen, ShoppingCart, Menu, X,
-  User, LogOut, Heart,
+  User, LogOut, Heart, Shield,
   Info as InfoIcon,
   Mail as MailIcon,
   HelpCircle,
@@ -70,7 +70,6 @@ export default function Header() {
     router.push('/')
   }
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -84,7 +83,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200/50 overflow-x-hidden"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200/50"
       style={{
         backgroundColor: useTransform(headerBg, (v) => `rgba(255, 255, 255, ${v})`),
         backdropFilter: useTransform(headerBlur, (v) => `blur(${v}px)`),
