@@ -303,7 +303,7 @@ export default function Header() {
                   Login
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/register"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full px-4 py-3 rounded-xl text-center font-medium bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all"
                 >
